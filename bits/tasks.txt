@@ -1,0 +1,11 @@
+3. Have a look at the documentation of FMLA (vector).
+What did we just accomplish through the example above?
+
+The given example value of 'i_vec_instr' is equal to the
+generic instruction format of the FMLA instruction that
+operates on SIMD&FP registers. The bits that identify
+the two source registers and the destination register
+are all set to 0. What the implemented function now does
+is that it takes the information for the three registers
+as well as the instruction itself as input, and it inserts
+the register identifiers into the instruction. 
