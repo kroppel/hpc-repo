@@ -1,0 +1,9 @@
+Given the matrix dimensions M, N and K,
+how many floating point operations are required
+to perform the (dense) matrix-matrix multiplication?
+
+#FLOP = M*N*K*2
+
+M*N -> Anzahl Elemente in C
+Je element -> k Multiplikationen mit elementen aus A und B
+           -> k Additionen
