@@ -1,7 +1,6 @@
 #include <cstdint>
 #include <cmath>
 #include <chrono>
-#include <omp.h>
 #include <iostream>
 #include "gemm-ref.h"
 
@@ -18,20 +17,25 @@ int main() {
   float mat_c[6] = {0,0,0,0,0,0};
 
   // benchmark config
-  int n_repetitions = 1000000;
+  long n_repetitions = 25000000;
 
   // NR of operations
-  int n_gflops = (i_m*i_n*i_k*2) * n_repetitions;
+  long n_gflops = (i_m*i_n*i_k*2) * n_repetitions;
 
   auto start = std::chrono::high_resolution_clock::now();
   for (int i = 0; i < n_repetitions; i++) {
-    gemm_ref(mat_a, mat_b, mat_c, i_m, i_n, i_k, i_lda, i_b, i_ldc);
+    gemm_ref(mat_a, mat_b, mat_c, i_m, i_n, i_k, i_lda, i_ldb, i_ldc);
   }
   auto end = std::chrono::high_resolution_clock::now();
 
-  std::chrono::duration<double> time = end - start;
+  std::chrono::duration<double> time_s = end - start;
+  std::chrono::duration<double, std::milli> time_ms = end - start;
+  
   std::cout << "Benchmark of Reference Kernel:\n";
-  std::cout << "    GFLOPS: " << n_gflops/time << "\n";
+  std::cout << "    n_gflops: " << n_gflops << "\n";
+  std::cout << "    time: " << time_s.count() << "s\n";
+  std::cout << "    GFLOPS: " << n_gflops/(10E9 * time_s.count()) << "\n";
+  std::cout << "    Average Kernel Duration: " << n_gflops/(10E9 * time_s.count()) << "\n";
 
   return EXIT_SUCCESS;
 }
