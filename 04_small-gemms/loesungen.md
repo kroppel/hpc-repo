@@ -199,3 +199,37 @@ O3:
         GFLOPS: 0.0373462
         Average Kernel Duration: 0.00140386
 
+8. Implement a C/C++ matrix-matrix multiplication kernel through three nested loops over M,N and K:
+
+    The loop over M should be the outer-loop.
+    The loop over N should be the in the middle.
+    The loop over K should be the inner-loop.
+
+The kernel should assume fixed matrix-sizes and leading dimensions:
+
+    M = N = K = 32
+    ldA = ldB = ldC = 32
+
+The kernel should be implemented in the file gemm_compiler_32_32_32_32_32_32.cpp and have the following signature:
+
+void gemm_compiler_32_32_32_32_32_32_mnk( float const * i_a,
+                                          float const * i_b,
+                                          float       * io_c );
+
+9. Implement a C/C++ matrix-matrix multiplication kernel through three nested loops over ,  and . Assumptions as before, however the loop-ordering shall be:
+
+    The loop over  should be the outer-loop.
+    The loop over  should be the in the middle.
+    The loop over  should be the inner-loop.
+
+As before, implement the kernel in the file gemm_compiler_32_32_32_32_32_32.cpp but use the following signature:
+
+void gemm_compiler_32_32_32_32_32_32_nkm( float const * i_a,
+                                          float const * i_b,
+                                          float       * io_c );
+Make sure that the two kernels produce the same results (up to a small epsilon) as your reference kernel gemm_ref.
+
+Try optimization flags, e.g., -O2 or -O3, and report performance numbers for gemm_compiler_32_32_32_32_32_32_mnk and gemmCompiler_32_32_32_32_32_32_nkm.
+
+
+
