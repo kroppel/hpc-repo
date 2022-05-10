@@ -1,5 +1,3 @@
-#include <cstdint>
-#include <cmath>
 #include <chrono>
 #include <iostream>
 #include "gemm-ref.h"

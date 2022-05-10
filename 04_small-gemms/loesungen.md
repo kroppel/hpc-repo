@@ -152,7 +152,8 @@ O3:
         GFLOPS: 0.0373462  
         Average Kernel Duration: 0.00140386  
 
-No significant changes in the avg. kernel runtimes for different optimizations. (Though I may have only compiled the driver with -OX flag due to cmake configuration)  
+No significant changes in the avg. kernel runtimes for different optimizations. (Though I may have only compiled the driver with -OX flag due to cmake configuration)
+FLOP throughput decreases with dim size, probably due to increased memory accesses.
 Kernel durations are increasing in cubic fashion depending on the dimension, as the number of FLOPs is given by n*m*k*2 which leads to asymptotic complexity of O(n^3) for n=m=k.
 
 
