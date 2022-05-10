@@ -45,13 +45,11 @@ int main() {
     
     std::cout << "Benchmark of gemm_ref:\n";
     std::cout << "    Dim: " << lambda << "\n";
-    std::cout << "    n_flops: " << n_flops << "\n";
-    std::cout << "    time: " << time_s.count() << "s\n";
     std::cout << "    GFLOPS: " << n_flops/(10E9 * time_s.count()) << "\n";
     std::cout << "    Average Kernel Duration: " << time_s.count()/n_repetitions << "\n";
 
   }
-
+  
   // benchmark gemm_compiler_32_32_32_32_32_32_mnk
 
   float mat_a[32*32] = {2};
@@ -106,7 +104,7 @@ int main() {
   time_s = end - start;
   time_ms = end - start;
     
-  std::cout << "Benchmark of gemm_compiler_32_32_32_32_32_32_mnk:\n";
+  std::cout << "Benchmark of gemm_compiler_32_32_32_32_32_32_nkm:\n";
   std::cout << "    n_flops: " << n_flops << "\n";
   std::cout << "    time: " << time_s.count() << "s\n";
   std::cout << "    GFLOPS: " << n_flops/(10E9 * time_s.count()) << "\n";

@@ -61,18 +61,18 @@ TEST_CASE("LD = 3, Quadratic Matrices 2x2", "[correctness]") {
 }
 
 TEST_CASE("Dim=32 Kernel MNK", "[correctness]") {
-    int i_m = 3; 
-    int i_n = 3; 
-    int i_k = 3;
-    int i_lda = 3;
-    int i_ldb = 3;
-    int i_ldc = 3;
+    int i_m = 32; 
+    int i_n = 32; 
+    int i_k = 32;
+    int i_lda = 32;
+    int i_ldb = 32;
+    int i_ldc = 32;
 
 
-    float mat_a[9] = {1,2,3,4,5,6,7,8,9};
-    float mat_b[9] = {1,0,0,0,1,0,0,0,1};
-    float mat_c1[9] = {0};
-    float mat_c2[9] = {0};
+    float mat_a[32*32] = {1};
+    float mat_b[32*32] = {1};
+    float mat_c1[32*32] = {0};
+    float mat_c2[32*32] = {0};
 
     gemm_ref(mat_a, mat_b, mat_c1, i_m, i_n, i_k, i_lda, i_ldb, i_ldc);
     gemm_compiler_32_32_32_32_32_32_mnk(mat_a, mat_b, mat_c2);
@@ -81,18 +81,18 @@ TEST_CASE("Dim=32 Kernel MNK", "[correctness]") {
 }
 
 TEST_CASE("Dim=32 Kernel NKM", "[correctness]") {
-    int i_m = 3; 
-    int i_n = 3;
-    int i_k = 3;
-    int i_lda = 3;
-    int i_ldb = 3;
-    int i_ldc = 3;
+    int i_m = 32; 
+    int i_n = 32; 
+    int i_k = 32;
+    int i_lda = 32;
+    int i_ldb = 32;
+    int i_ldc = 32;
 
 
-    float mat_a[9] = {1,2,3,4,5,6,7,8,9};
-    float mat_b[9] = {1,0,0,0,1,0,0,0,1};
-    float mat_c1[9] = {0};
-    float mat_c2[9] = {0};
+    float mat_a[32*32] = {1};
+    float mat_b[32*32] = {1};
+    float mat_c1[32*32] = {0};
+    float mat_c2[32*32] = {0};
 
     gemm_ref(mat_a, mat_b, mat_c1, i_m, i_n, i_k, i_lda, i_ldb, i_ldc);
     gemm_compiler_32_32_32_32_32_32_nkm(mat_a, mat_b, mat_c2);
