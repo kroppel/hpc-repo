@@ -199,6 +199,10 @@ O3:
         GFLOPS: 0.0373462
         Average Kernel Duration: 0.00140386
 
+No big changes in the times for different optimizations.
+Kernel durations are increasing in cubic fashion depending on the dimension,
+as the number of FLOPs is given by n*m*k*2 which leads to asymptotic complexity of O(n^3) for n=m=k
+
 8. Implement a C/C++ matrix-matrix multiplication kernel through three nested loops over M,N and K:
 
     The loop over M should be the outer-loop.
@@ -216,11 +220,11 @@ void gemm_compiler_32_32_32_32_32_32_mnk( float const * i_a,
                                           float const * i_b,
                                           float       * io_c );
 
-9. Implement a C/C++ matrix-matrix multiplication kernel through three nested loops over ,  and . Assumptions as before, however the loop-ordering shall be:
+9. Implement a C/C++ matrix-matrix multiplication kernel through three nested loops over M, N and K. Assumptions as before, however the loop-ordering shall be:
 
-    The loop over  should be the outer-loop.
-    The loop over  should be the in the middle.
-    The loop over  should be the inner-loop.
+    The loop over N  should be the outer-loop.
+    The loop over K should be the in the middle.
+    The loop over M should be the inner-loop.
 
 As before, implement the kernel in the file gemm_compiler_32_32_32_32_32_32.cpp but use the following signature:
 
@@ -230,6 +234,8 @@ void gemm_compiler_32_32_32_32_32_32_nkm( float const * i_a,
 Make sure that the two kernels produce the same results (up to a small epsilon) as your reference kernel gemm_ref.
 
 Try optimization flags, e.g., -O2 or -O3, and report performance numbers for gemm_compiler_32_32_32_32_32_32_mnk and gemmCompiler_32_32_32_32_32_32_nkm.
+
+
 
 
 

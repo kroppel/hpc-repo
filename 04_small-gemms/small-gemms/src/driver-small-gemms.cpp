@@ -11,12 +11,9 @@ int main() {
 
   for (int lambda:lambdas) {
 
-    int i_m = lambda; 
-    int i_n = lambda; 
-    int i_k = lambda;
-    int i_lda = lambda;
-    int i_ldb = lambda;
-    int i_ldc = lambda;
+    int i_m = lambda; gemm_compiler_32_32_32_32_32_32_mnk( float const * i_a,
+                                          float const * i_b,
+                                          float       * io_c )
     float mat_a[i_m*i_k] = {2};
     float mat_b[i_k*i_n] = {3};
     float mat_c[i_m*i_n] = {0};
