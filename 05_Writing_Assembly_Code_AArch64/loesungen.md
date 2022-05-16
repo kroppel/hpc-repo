@@ -65,6 +65,7 @@ CMP is an alias of SUBS.
 3. Why are lines 18, 21, and 24 in the driver troublesome? Run the uncommented troublemakers through Valgrind and explain the output!
 
 ### Line 18:
+Error output:
   >Invalid read of size 8  
   >at load_asm (in load.s:16)  
   >Address is 24 bytes after a block of size 80 in arena "client"  
@@ -74,53 +75,64 @@ CMP is an alias of SUBS.
   last array element. With the 8 byte pre-increment, we land at an  
   address 24 bytes after the last array  element, resulting in the  
   error above for the instructions  
+  
     ldr x1, [x0, #8]!    
-    ldp x2, x3, [x0]     
+    ldp x2, x3, [x0]   
+    
+Error output:
+  >Invalid read of size 8  
+  >at load_asm (in load.s:21)  
+  >Address is 24 bytes before an unallocated block of size 4,121,296 in arena "client"  
 
-  >Invalid read of size 8
-  >at load_asm (in load.s:21)
-  >Address is 24 bytes before an unallocated block of size 4,121,296 in arena "client"
-
-  results from instruction
+  This error results from the instruction
+  
     ldp x4, x5, [x0, #16]
 
 ### Line 21:
+Error output:
   >Invalid read of size 8  
   >at load_asm (in load.s:16)  
   >Address is 0 bytes after a block of size 80 alloc'd  
   >at operator new[](unsigned long) (in vg_replace_malloc.c:429)  
   >by main (in driver.cpp:9)  
 
-  instruction  
+  The instruction  
+  
     ldp x2, x3, [x0]  
+    
   tries to read a pair of values from address x0, which references  
   the last array element. Therefore, the second value of the pair  
   would be read out of not allocated memory and would not be an  
   array element. (Address 0 bytes after block)  
 
-
+Error output:
   >Invalid read of size 8  
   >at load_asm (in load.s:21)  
   >Address is 8 bytes after a block of size 80 alloc'd  
   >at operator new[](unsigned long) (in vg_replace_malloc.c:429)  
   >by main (in driver.cpp:9)  
 
-  instruction  
-    ldp x4, x5, [x0, #16]  
+  The instruction  
+  
+    ldp x4, x5, [x0, #16]
+    
   tries to read a pair of values from address x0 with offset of 16  
   bytes, which references the second 8-byte-block after the array.  
   Therefore, both values would be read out of not allocated memory  
   and would not be an array element.  
 
 ### Line 24:
+Error output:  
   >Invalid read of size 8  
   >at load_asm (in load.s:21)  
   >Address is 0 bytes after a block of size 80 alloc'd  
   >at operator new[](unsigned long) (in vg_replace_malloc.c:429)  
   >by main (in driver.cpp:9)  
 
-  instruction  
+  The instruction  
+  
     ldp x4, x5, [x0, #16]  
+    
   tries to read a pair of values from address x0, which references  
   the last array element. Therefore, the second value of the pair  
   would be read out of not allocated memory and would not be an  
