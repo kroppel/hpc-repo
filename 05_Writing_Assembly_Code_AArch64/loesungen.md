@@ -56,9 +56,11 @@ CMP is an alias of SUBS.
 
     - Show the contents of the registers: info registers.
 
-    ![info_registers](gdb_and_valgrind/info_registers.png)
+    ![info_registers](images/info_registers.png)
 
     - Now step through the load instructions by using step and show the registers’ contents after every step.
+
+    TODO register images
 
 3. Why are lines 18, 21, and 24 in the driver troublesome? Run the uncommented troublemakers through Valgrind and explain the output!
 

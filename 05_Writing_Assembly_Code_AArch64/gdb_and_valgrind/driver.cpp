@@ -9,9 +9,7 @@ int main() {
   uint64_t * l_a = new uint64_t[10];
 
   for( unsigned short l_va = 0; l_va < 10; l_va++ ) {
-
     l_a[l_va] = (l_va+1)*100;
-
   }
 
   // ok
