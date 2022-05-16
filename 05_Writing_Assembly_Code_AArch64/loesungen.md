@@ -65,15 +65,15 @@ CMP is an alias of SUBS.
 3. Why are lines 18, 21, and 24 in the driver troublesome? Run the uncommented troublemakers through Valgrind and explain the output!
 
 ### Line 18:
-  >Invalid read of size 8
-  >at load_asm (in load.s:16)
-  >Address is 24 bytes after a block of size 80 in arena "client"
+  >Invalid read of size 8  
+  >at load_asm (in load.s:16)  
+  >Address is 24 bytes after a block of size 80 in arena "client"  
 
-  block of size 80 -> input array
-  l_a+12 points to the address which is located 16 bytes after the
-  last array element. With the 8 byte pre-increment, we land at an
-  address 24 bytes after the last array element, resulting in the
-  error above for the instructions
+  block of size 80 -> input array  
+  l_a+12 points to the address which is located 16 bytes after the  
+  last array element. With the 8 byte pre-increment, we land at an  
+  address 24 bytes after the last array  element, resulting in the  
+  error above for the instructions  
     ldr x1, [x0, #8]!    
     ldp x2, x3, [x0]     
 
