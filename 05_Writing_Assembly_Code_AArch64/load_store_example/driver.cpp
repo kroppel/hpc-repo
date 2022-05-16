@@ -5,8 +5,8 @@ extern "C" {
 }
 
 int main() {
-    uint64_t l_array0[2] = {10, 20};
-    uint64_t l_array1[2] = {0};
+    int64_t l_array0[2] = {10, 20};
+    int64_t l_array1[2] = {0};
     load_store_2(l_array0, l_array1);
     std::cout << "l_array1: {" << l_array1[0] << ", "<< l_array1[1] << "}\n";
 
