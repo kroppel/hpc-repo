@@ -56,7 +56,7 @@ CMP is an alias of SUBS.
 
     - Show the contents of the registers: info registers.
 
-    ![info_registers](gdb_and_valgrind/info_registers.xcf)
+    ![info_registers](gdb_and_valgrind/info_registers.png)
 
     - Now step through the load instructions by using step and show the registers’ contents after every step.
 
