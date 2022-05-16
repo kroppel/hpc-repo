@@ -8,8 +8,8 @@
         * @param x1: address to which we store the data.
         */
 load_store_2:
-        ldp x2, x3, [x0]
-        stp x2, x3, [x1]
+        ldp x2, x3, [x0] // -> assembles to 'a940 0c22'
+        stp x2, x3, [x1] // -> assembles to 'a900 03c0'
 
         ret
         .size   load_store_2, (. - load_store_2)
