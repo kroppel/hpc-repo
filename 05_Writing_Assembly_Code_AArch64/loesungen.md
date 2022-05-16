@@ -14,6 +14,14 @@
 
     - Use the disassembler.
 
+    Disassembly of section .text:
+
+    0000000000000000 <load_store_2>:  
+        0:   a9400c02        ldp     x2, x3, [x0]  
+        4:   a9000c22        stp     x2, x3, [x1]  
+        8:   d65f03c0        ret  
+
+
     - Modify the code to illustrate and test the following two concepts:
 
         - Aliases are syntactic sugar, we can replace them with the underlying instructions. Of course, this implies that you chose an example with an alias.
