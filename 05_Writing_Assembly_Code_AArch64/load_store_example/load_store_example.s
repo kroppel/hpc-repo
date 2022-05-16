@@ -11,6 +11,10 @@ load_store_2:
         ldp x2, x3, [x0] // -> assembles to 'a940 0c22'
         stp x2, x3, [x1] // -> assembles to 'a900 03c0'
 
+        // Show that CMP and SUBS are aliases
+        CMP x2, x3
+        SUBS xzr, x2, x3
+
         ret
         .size   load_store_2, (. - load_store_2)
         

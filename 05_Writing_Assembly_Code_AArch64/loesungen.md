@@ -28,15 +28,35 @@
 
         - Instead of mnemonics one can also write machine code directly.
 
+Output for CMP and SUBS instructions
+
+    Disassembly of section .text:
+
+0000000000000000 <load_store_2>:
+   0:   a9400c02        ldp     x2, x3, [x0]
+   4:   a9000c22        stp     x2, x3, [x1]
+   8:   eb03005f        cmp     x2, x3
+   c:   eb03005f        cmp     x2, x3
+  10:   d65f03c0        ret
+
+TODO: Write machine code directly!
+    
+
+As an example, we look at the instructions CMP and SUBS, where
+CMP is an alias of SUBS.
 
 ## GDB and Valgrind
 
 1. Explain the assembly code. When executing the function-call load_asm( l_a+2 ) in the driver, what are the contents of registers X1-X5 before returning in line 10?
 
+-> see load.s and driver.cpp
+
 2. Compile and execute the code, use -g as compile-flag. Now, run the code through GDB:
     - Set a break-point when entering the function load_asm: break load_asm.
 
     - Show the contents of the registers: info registers.
+
+    ![info_registers](gdb_and_valgrind/info_registers.xcf)
 
     - Now step through the load instructions by using step and show the registers’ contents after every step.
 
