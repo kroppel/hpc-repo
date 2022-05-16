@@ -6,44 +6,49 @@
 
 1. Choose one or two assembly examples from the lectures. For these examples, follow the lectures to perform the following steps:
 
-    - Use the assembler to generate machine code.
+  - Use the assembler to generate machine code.
 
-    - Run and test your obtained machine code by writing C/C++ drivers.
+  - Run and test your obtained machine code by writing C/C++ drivers.
 
-    - Create hex-dumps of the assembled code.
+  - Create hex-dumps of the assembled code.
 
-    - Use the disassembler.
+-> See load_store_example/hexdump_object_file
 
-    Disassembly of section .text:
+  - Use the disassembler.
 
-    0000000000000000 <load_store_2>:  
-        0:   a9400c02        ldp     x2, x3, [x0]  
-        4:   a9000c22        stp     x2, x3, [x1]  
-        8:   d65f03c0        ret  
+  >Disassembly of section .text:  
+  >  
+  >0000000000000000 <load_store_2>:  
+  >    0:   a9400c02        ldp     x2, x3, [x0]  
+  >    4:   a9000c22        stp     x2, x3, [x1]  
+  >    8:   d65f03c0        ret  
 
 
-    - Modify the code to illustrate and test the following two concepts:
+  - Modify the code to illustrate and test the following two concepts:
 
-        - Aliases are syntactic sugar, we can replace them with the underlying instructions. Of course, this implies that you chose an example with an alias.
+    - Aliases are syntactic sugar, we can replace them with the underlying instructions. Of course,  
+    this implies that you chose an example with an alias.
 
-        - Instead of mnemonics one can also write machine code directly.
-
-Output for CMP and SUBS instructions
-
-    Disassembly of section .text:
-
-0000000000000000 <load_store_2>:
-   0:   a9400c02        ldp     x2, x3, [x0]
-   4:   a9000c22        stp     x2, x3, [x1]
-   8:   eb03005f        cmp     x2, x3
-   c:   eb03005f        cmp     x2, x3
-  10:   d65f03c0        ret
-
-TODO: Write machine code directly!
-    
+    - Instead of mnemonics one can also write machine code directly.
 
 As an example, we look at the instructions CMP and SUBS, where
-CMP is an alias of SUBS.
+CMP is an alias of SUBS.  
+Output for CMP and SUBS instructions  
+
+  >Disassembly of section .text:  
+  >  
+  >0000000000000000 <load_store_2>:  
+  >   0:   a9400c02        ldp     x2, x3, [x0]  
+  >   4:   a9000c22        stp     x2, x3, [x1]  
+  >   8:   eb03005f        cmp     x2, x3  
+  >   c:   eb03005f        cmp     x2, x3  
+  >  10:   d65f03c0        ret  
+
+As it can be seen, both CMP x2, x3 and SUBS xzr, x2, x3 were assembled to the same machine code  
+and also disassembled to the same assembler code, namely the cmp instruction, which is  
+the preferred disassembly instruction for the operation (according to the ISA Documentation).
+
+TODO: Write machine code directly!
 
 ## GDB and Valgrind
 
