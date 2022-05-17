@@ -15,6 +15,14 @@ load_store_2:
         CMP x2, x3
         SUBS xzr, x2, x3
 
+        // Machine code directly
+        CMP x2, x3
+        .word 0xeb03005f
+
+        
+
+        
+
         ret
         .size   load_store_2, (. - load_store_2)
         
