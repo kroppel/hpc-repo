@@ -8,12 +8,27 @@
         * @param x1: address to which we store the data.
         */
 copy_asm:
-        ldp x2, x3, [x0] // -> assembles to 'a940 0c22'
-        stp x2, x3, [x1] // -> assembles to 'a900 03c0'
+        eor x2, x2, x2
+        ldr w2, [x0, #0*4]
+        str w2, [x1, #0*8] 
 
-        // Show that CMP and SUBS are aliases
-        CMP x2, x3
-        SUBS xzr, x2, x3
+        ldr w2, [x0, #1*4] 
+        str w2, [x1, #1*8] 
+
+        ldr w2, [x0, #2*4] 
+        str w2, [x1, #2*8]
+
+        ldr w2, [x0, #3*4] 
+        str w2, [x1, #3*8]
+
+        ldr w2, [x0, #4*4] 
+        str w2, [x1, #4*8] 
+
+        ldr w2, [x0, #5*4] 
+        str w2, [x1, #5*8]
+
+        ldr w2, [x0, #6*4] 
+        str w2, [x1, #6*8] 
 
         ret
         .size   copy_asm, (. - copy_asm)
