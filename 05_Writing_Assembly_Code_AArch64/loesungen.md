@@ -69,7 +69,16 @@ as the disassembler was able to reconstruct the directive.
 
     - Now step through the load instructions by using step and show the registers’ contents after every step.
 
-    TODO register images
+    ![info_registers_step_1](images/step1.png)
+
+    ![info_registers_step_1](images/step2.png)
+
+    ![info_registers_step_1](images/step3.png)
+
+    ![info_registers_step_1](images/step4.png)
+
+    ![info_registers_step_1](images/step5.png)
+
 
 3. Why are lines 18, 21, and 24 in the driver troublesome? Run the uncommented troublemakers through Valgrind and explain the output!
 
