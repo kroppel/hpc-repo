@@ -1,10 +1,10 @@
         .text
-        .type gemm_asm_sve_64_6_1, %function
-        .global gemm_asm_sve_64_6_1
+        .type gemm_asm_sve_64_6_48, %function
+        .global gemm_asm_sve_64_6_48
 
         /*
          * Performs the matrix-multiplication C+=A*B
-         * with the shapes (64x6) = (64x1) * (1x6).
+         * with the shapes (64x6) = (64x48) * (48x6).
          * The input-data is of type float.
          *
          * @param x0 pointer to A.
@@ -12,7 +12,7 @@
          * @param x2 pointer to C.
          */ 
 
-gemm_asm_sve_64_6_1:
+gemm_asm_sve_64_6_48:
         // set predicate register to true
         ptrue p0.b
 
@@ -31,10 +31,9 @@ gemm_asm_sve_64_6_1:
         stp d14, d15, [sp, #-16]!
 
 
-        // your matrix kernel goes here!
+        //matrix kernel
 
         //load C
-
         ldr z0, [x2]
         add x2, x2, #16*4
         ldr z1, [x2]
@@ -89,21 +88,23 @@ gemm_asm_sve_64_6_1:
         ldr z23, [x2]
         sub x2, x2, #23*16*4
 
-
-
+        // initialize loop var to 0
+        eor x19, x19, x19
+GEMM_LOOP:
+        
         //load B
-
         ld1rw {z24.s}, p0/z, [x1]
-        add x1, x1, #4
+        add x1, x1, #4*48
         ld1rw {z25.s}, p0/z, [x1]
-        add x1, x1, #4
+        add x1, x1, #4*48
         ld1rw {z26.s}, p0/z, [x1]
-        add x1, x1, #4
+        add x1, x1, #4*48
         ld1rw {z27.s}, p0/z, [x1]
-        add x1, x1, #4
+        add x1, x1, #4*48
         ld1rw {z28.s}, p0/z, [x1]
-        add x1, x1, #4
+        add x1, x1, #4*48
         ld1rw {z29.s}, p0/z, [x1]
+        sub x1, x1, #4*48*5
         add x1, x1, #4
 
 
@@ -113,12 +114,9 @@ gemm_asm_sve_64_6_1:
         ldr z31, [x0]
         add x0, x0, #16*4
 
-
-
         //first part of calculation C += AB
 
         //first 16 values from A
-    
         fmla z0.s, p0/m, z24.s, z30.s
         fmla z4.s, p0/m, z25.s, z30.s
         fmla z8.s, p0/m, z26.s, z30.s
@@ -127,7 +125,6 @@ gemm_asm_sve_64_6_1:
         fmla z20.s, p0/m, z29.s, z30.s
 
         //second 16 values from A
-
         fmla z1.s, p0/m, z24.s, z31.s
         fmla z5.s, p0/m, z25.s, z31.s
         fmla z9.s, p0/m, z26.s, z31.s
@@ -142,12 +139,9 @@ gemm_asm_sve_64_6_1:
         ldr z31, [x0]
         add x0, x0, #16*4
 
-
-
         //second part of calculation C += AB
 
         //third 16 values from A
-    
         fmla z2.s, p0/m, z24.s, z30.s
         fmla z6.s, p0/m, z25.s, z30.s
         fmla z10.s, p0/m, z26.s, z30.s
@@ -156,7 +150,6 @@ gemm_asm_sve_64_6_1:
         fmla z22.s, p0/m, z29.s, z30.s
 
         //fourth 16 values from A
-
         fmla z3.s, p0/m, z24.s, z31.s
         fmla z7.s, p0/m, z25.s, z31.s
         fmla z11.s, p0/m, z26.s, z31.s
@@ -165,6 +158,9 @@ gemm_asm_sve_64_6_1:
         fmla z23.s, p0/m, z29.s, z31.s
 
 
+        add x19, x19, #1
+        cmp x19, #48
+        B.NE GEMM_LOOP
         
         // store C
 
@@ -239,4 +235,4 @@ gemm_asm_sve_64_6_1:
         ldp x19, x20, [sp], #16
 
         ret
-        .size gemm_asm_sve_64_6_1, (. - gemm_asm_sve_64_6_1)
+        .size gemm_asm_sve_64_6_48, (. - gemm_asm_sve_64_6_48)
