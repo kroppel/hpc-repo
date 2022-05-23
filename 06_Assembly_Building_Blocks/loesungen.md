@@ -5,8 +5,20 @@
 ### SVE: Getting Started
 
 - Browse over the Hot Chips 28 presentation ARMv8-A Next-Generation Vector Architecture for HPC.
+  
+    Website under Maintenance
 
 - Check out the presentation Introduction to ARM SVE by ARM Software Developers.
+
+    SVE key features:  
+
+    Vector Agnostic design -> portability of compiled code between different HW vector length implementations  
+    gather-load & scatter-store  
+    per-lane-predication  
+    predicate-driven loop control  
+    vector partitioning & software-managed speculation  
+    FP horizontal reductions  
+
 
 - Have a look at the paper The ARM Scalable Vector Extension.
 
