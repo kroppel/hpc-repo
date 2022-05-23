@@ -76,6 +76,45 @@ Rules:
 
 1. Explain in 1-2 sentences what every of the eight functions does.
 
+#### int32_t high_lvl_0:
+Takes in parameter of type int32_t and returns the input value.  
+
+#### uint64_t high_lvl_1:
+Takes in parameter of type uint64_t and returns 0.  
+
+#### int32_t high_lvl_2:
+Takes in parameter of type int32_t and returns 0 if input value is higher than  
+31, 1 otherwise.  
+
+#### void high_lvl_3:
+Takes in 2 parameters of type int32_t * and sets value  
+referenced by second parameter to 1 if value referenced  
+by first parameter is lower than 25, otherwise it sets  
+the value referenced by second parameter to 0.  
+
+#### uint32_t high_lvl_4:
+Takes in 3 parameters of type uint32_t and returns  
+- 1 if first parameter is smaller than second and third  
+- 2 if second parameter is smaller than first and third  
+- 3 otherwise  
+
+#### void high_lvl_5:
+Takes in uint32_t and pointer to uint32_t parameters and  
+and increments the value referenced by the second parameter  
+n times with n being the first parameters value.  
+
+#### void high_lvl_6:
+Takes in two uint64_t parameters and 1 pointer to uint64_t and  
+and adds the second parameters value to the value referenced to  
+by the third parameter n times with n being the first parameters value.  
+If the first parameter's value is smaller than 1, the addition will be  
+executed exactly once.  
+
+#### void high_lvl_7:
+Takes in one uint64_t parameter and 2 pointer to uint64_t and  
+and writes the value from the first array at index i to the second array  
+at index i with in range from 0 to the first parameters value.  
+
 2. Implement the functions in assembly language. Use the file names low_level.h and low_level.cpp and matching names for the functions, i.e., low_lvl_0, low_lvl_1, …, low_lvl_7.
 
 3. Verify your low-level versions by extending the driver.
