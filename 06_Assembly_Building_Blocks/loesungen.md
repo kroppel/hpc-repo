@@ -59,12 +59,12 @@ Rules:
 
 gemm_asm_sve_64_6_1:
 
-Team name   | time (s)  | #Executions   | GFLOPS  | %PEAK
+Team name   | time (s)  | #Executions   | GFLOPS  | %PEAK  
 HPC-Lovers  | 3.72714   | 50000000      | 10.3028 | 8,94
 
 gemm_asm_sve_64_6_48:
 
-Team name   | time (s)  | #Executions   | GFLOPS  | %PEAK
+Team name   | time (s)  | #Executions   | GFLOPS  | %PEAK  
 HPC-Lovers  | 2.44574   | 5000000       | 75.3636 | 65,42
 
 
