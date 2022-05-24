@@ -81,12 +81,8 @@ gemm_asm_sve_64_6_1_opt:
 
 
         //load first half of A
-        ldr z30, [x0]
-        add x0, x0, #16*4
-        ldr z31, [x0]
-        add x0, x0, #16*4
-
-
+        ldr z30, [x0, #0,MUL VL]
+        ldr z31, [x0, #1,MUL VL]
 
         //first part of calculation C += AB
 
@@ -110,10 +106,8 @@ gemm_asm_sve_64_6_1_opt:
 
 
         //load second half of A
-        ldr z30, [x0]
-        add x0, x0, #16*4
-        ldr z31, [x0]
-        add x0, x0, #16*4
+        ldr z30, [x0, #2,MUL VL]
+        ldr z31, [x0, #3,MUL VL]
 
 
 

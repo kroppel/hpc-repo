@@ -16,21 +16,6 @@ gemm_asm_sve_64_6_48_opt:
         // set predicate register to true
         ptrue p0.b
 
-        // store
-        stp x19, x20, [sp, #-16]!
-        stp x21, x22, [sp, #-16]!
-        stp x23, x24, [sp, #-16]!
-        stp x25, x26, [sp, #-16]!
-        stp x27, x28, [sp, #-16]!
-        stp x29, x30, [sp, #-16]!
-
-
-        stp  d8,  d9, [sp, #-16]!
-        stp d10, d11, [sp, #-16]!
-        stp d12, d13, [sp, #-16]!
-        stp d14, d15, [sp, #-16]!
-
-
         //matrix kernel
 
         //load C
@@ -65,7 +50,7 @@ gemm_asm_sve_64_6_48_opt:
         ldr z23, [x2,#23,MUL VL]
 
         // initialize loop var to 48
-        mov w19, #48
+        mov w3, #48
 GEMM_LOOP2:
         
         //load B first 4 values in current row
@@ -128,8 +113,8 @@ GEMM_LOOP2:
         fmla z19.s, p0/m, z24.s, z31.s
         fmla z23.s, p0/m, z25.s, z31.s
 
-        // Branch to loop label as long as x19 does not contain 0
-        subs x19, x19, #1
+        // Branch to loop label as long as x3 does not contain 0
+        subs x3, x3, #1
         B.NE GEMM_LOOP2
         
         // store C
@@ -163,21 +148,6 @@ GEMM_LOOP2:
         str z21, [x2,#21,MUL VL]
         str z22, [x2,#22,MUL VL]
         str z23, [x2,#23,MUL VL]
-
-
-        // restore
-        ldp d14, d15, [sp], #16
-        ldp d12, d13, [sp], #16
-        ldp d10, d11, [sp], #16
-        ldp  d8,  d9, [sp], #16
-
-
-        ldp x29, x30, [sp], #16
-        ldp x27, x28, [sp], #16
-        ldp x25, x26, [sp], #16
-        ldp x23, x24, [sp], #16
-        ldp x21, x22, [sp], #16
-        ldp x19, x20, [sp], #16
 
         ret
         .size gemm_asm_sve_64_6_48_opt, (. - gemm_asm_sve_64_6_48_opt)
