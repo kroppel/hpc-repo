@@ -57,17 +57,17 @@ Rules:
 
 4. Come up with a creative team name and submit it together with your entries for “time (s)”, “#executions”, “GFLOPS” and “%peak” in the table above.
 
-#### gemm_asm_sve_64_6_1:
+#### gemm_asm_sve_64_6_1_opt:
 
 | Team name   | time (s)  | #Executions   | GFLOPS  | %PEAK | 
 | ----------- | --------- | ------------  | ------- | ----- |  
-| HPC-Lovers  | 3.72714   | 50000000      | 10.3028 | 8,94  |  
+| HPC-Lovers  | 3.72714   | 50000000      | 10.3477 | 8,98  |  
 
-#### gemm_asm_sve_64_6_48:
+#### gemm_asm_sve_64_6_48_opt:
 
 | Team name   | time (s)  | #Executions   | GFLOPS  | %PEAK |   
 | ----------- | --------- | ------------  | ------- | ----- |    
-| HPC-Lovers  | 2.44574   | 5000000       | 75.3636 | 65,42 |    
+| HPC-Lovers  | 2.44574   | 5000000       | 78.9579 | 68,54 |    
 
 
 ### Conditions and Loops

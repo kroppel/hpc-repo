@@ -65,7 +65,7 @@ gemm_asm_sve_64_6_48_opt:
         ldr z23, [x2,#23,MUL VL]
 
         // initialize loop var to 0
-        eor x19, x19, x19
+        mov x19, #48
 GEMM_LOOP:
         
         //load B
@@ -133,9 +133,8 @@ GEMM_LOOP:
         fmla z19.s, p0/m, z28.s, z31.s
         fmla z23.s, p0/m, z29.s, z31.s
 
-
-        add x19, x19, #1
-        cmp x19, #48
+        // Branch to loop label as long as x19 does not contain 0
+        subs x19, x19, #1
         B.NE GEMM_LOOP
         
         // store C
