@@ -64,11 +64,11 @@ gemm_asm_sve_64_6_48_opt:
         ldr z22, [x2,#22,MUL VL]
         ldr z23, [x2,#23,MUL VL]
 
-        // initialize loop var to 0
-        mov x19, #48
-GEMM_LOOP:
+        // initialize loop var to 48
+        mov w19, #48
+GEMM_LOOP2:
         
-        //load B
+        //load B first 4 values in current row
         ld1rw {z24.s}, p0/z, [x1]
         add x1, x1, #4*48
         ld1rw {z25.s}, p0/z, [x1]
@@ -77,65 +77,60 @@ GEMM_LOOP:
         add x1, x1, #4*48
         ld1rw {z27.s}, p0/z, [x1]
         add x1, x1, #4*48
-        ld1rw {z28.s}, p0/z, [x1]
-        add x1, x1, #4*48
-        ld1rw {z29.s}, p0/z, [x1]
-        sub x1, x1, #4*48*5
-        add x1, x1, #4
 
-
-        //load first half of A
-        ldr z30, [x0]
-        add x0, x0, #16*4
-        ldr z31, [x0]
-        add x0, x0, #16*4
+        //load A current col
+        ldr z28, [x0,#0,MUL VL]
+        ldr z29, [x0,#1,MUL VL]
+        ldr z30, [x0,#2,MUL VL]
+        ldr z31, [x0,#3,MUL VL]
+        add x0, x0, #4*64
 
         //first part of calculation C += AB
 
-        //first 16 values from A
-        fmla z0.s, p0/m, z24.s, z30.s
-        fmla z4.s, p0/m, z25.s, z30.s
-        fmla z8.s, p0/m, z26.s, z30.s
-        fmla z12.s, p0/m, z27.s, z30.s
-        fmla z16.s, p0/m, z28.s, z30.s
-        fmla z20.s, p0/m, z29.s, z30.s
-
-        //second 16 values from A
-        fmla z1.s, p0/m, z24.s, z31.s
-        fmla z5.s, p0/m, z25.s, z31.s
-        fmla z9.s, p0/m, z26.s, z31.s
-        fmla z13.s, p0/m, z27.s, z31.s
-        fmla z17.s, p0/m, z28.s, z31.s
-        fmla z21.s, p0/m, z29.s, z31.s
-
-
-        //load second half of A
-        ldr z30, [x0]
-        add x0, x0, #16*4
-        ldr z31, [x0]
-        add x0, x0, #16*4
-
-        //second part of calculation C += AB
-
-        //third 16 values from A
+        fmla z0.s, p0/m, z24.s, z28.s
+        fmla z1.s, p0/m, z24.s, z29.s
         fmla z2.s, p0/m, z24.s, z30.s
-        fmla z6.s, p0/m, z25.s, z30.s
-        fmla z10.s, p0/m, z26.s, z30.s
-        fmla z14.s, p0/m, z27.s, z30.s
-        fmla z18.s, p0/m, z28.s, z30.s
-        fmla z22.s, p0/m, z29.s, z30.s
-
-        //fourth 16 values from A
         fmla z3.s, p0/m, z24.s, z31.s
+
+        //load B second part
+        ld1rw {z24.s}, p0/z, [x1]
+        add x1, x1, #4*48
+
+        fmla z4.s, p0/m, z25.s, z28.s
+        fmla z5.s, p0/m, z25.s, z29.s
+        fmla z6.s, p0/m, z25.s, z30.s
         fmla z7.s, p0/m, z25.s, z31.s
+
+        //load B third part
+        ld1rw {z25.s}, p0/z, [x1]
+        sub x1, x1, #4*(48*5-1)
+
+        fmla z8.s, p0/m, z26.s, z28.s
+        fmla z9.s, p0/m, z26.s, z29.s
+        fmla z10.s, p0/m, z26.s, z30.s
         fmla z11.s, p0/m, z26.s, z31.s
+
+        fmla z12.s, p0/m, z27.s, z28.s
+        fmla z13.s, p0/m, z27.s, z29.s
+        fmla z14.s, p0/m, z27.s, z30.s
         fmla z15.s, p0/m, z27.s, z31.s
-        fmla z19.s, p0/m, z28.s, z31.s
-        fmla z23.s, p0/m, z29.s, z31.s
+
+
+        fmla z16.s, p0/m, z24.s, z28.s
+        fmla z20.s, p0/m, z25.s, z28.s
+
+        fmla z17.s, p0/m, z24.s, z29.s
+        fmla z21.s, p0/m, z25.s, z29.s
+
+        fmla z18.s, p0/m, z24.s, z30.s
+        fmla z22.s, p0/m, z25.s, z30.s
+
+        fmla z19.s, p0/m, z24.s, z31.s
+        fmla z23.s, p0/m, z25.s, z31.s
 
         // Branch to loop label as long as x19 does not contain 0
         subs x19, x19, #1
-        B.NE GEMM_LOOP
+        B.NE GEMM_LOOP2
         
         // store C
 

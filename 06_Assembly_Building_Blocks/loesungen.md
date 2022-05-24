@@ -67,7 +67,7 @@ Rules:
 
 | Team name   | time (s)  | #Executions   | GFLOPS  | %PEAK |   
 | ----------- | --------- | ------------  | ------- | ----- |    
-| HPC-Lovers  | 2.44574   | 5000000       | 78.9579 | 68,54 |    
+| HPC-Lovers  | 2.16746   | 5000000       | 85.0394 | 73,82 |    
 
 
 ### Conditions and Loops
