@@ -9,9 +9,9 @@ extern "C" {
     void gemm_asm_sve_128_6_48(   float const * i_a,
                                 float const * i_b,
                                 float       * io_c );
-    void gemm_asm_sve_128_48_48(   float const * i_a,
+"""    void gemm_asm_sve_128_48_48(   float const * i_a,
                                 float const * i_b,
-                                float       * io_c );
+                                float       * io_c );"""
 }
 
 
@@ -35,11 +35,8 @@ void gemm_ref( float        const * i_a,
 
 double mat_diff_sum(float * c1, float * c2, unsigned int m, unsigned int n) {
     double diff = 0;
-    for (unsigned int i = 0; i < n; i++) {
-        for (unsigned int j = 0; j < m; j++) {
-            //std::cout << c1[i*n+j]-c2[i*n+j] << "\n";
-            diff += std::abs(c1[i*n+j]-c2[i*n+j]);
-        }
+    for (unsigned int i = 0; i < n*m; i++) {
+        diff += std::abs(c1[i]-c2[i]);
     }
     return diff;
 }
@@ -122,7 +119,7 @@ void benchmark_gemm_asm_sve_128_6_48() {
 }
 
 
-void benchmark_gemm_asm_sve_128_48_48() {
+"""void benchmark_gemm_asm_sve_128_48_48() {
     std::cout << "Run benchmark gemm_asm_sve_128_48_48\n";
 
     //variables for time measurement
@@ -197,7 +194,7 @@ void benchmark_gemm_asm_sve_128_48_48() {
     l_gflops *= 1.0E-9;
     l_gflops /= l_dur.count();
     std::cout << " GFLOPS: " << l_gflops << std::endl;
-}
+}"""
 
 
 
@@ -205,7 +202,7 @@ void benchmark_gemm_asm_sve_128_48_48() {
 int main(){
 
     benchmark_gemm_asm_sve_128_6_48();
-    benchmark_gemm_asm_sve_128_48_48();
+    //benchmark_gemm_asm_sve_128_48_48();
 
     return EXIT_SUCCESS;    
 }
