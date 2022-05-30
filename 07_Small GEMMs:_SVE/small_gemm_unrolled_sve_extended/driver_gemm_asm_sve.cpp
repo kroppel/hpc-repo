@@ -9,9 +9,9 @@ extern "C" {
     void gemm_asm_sve_128_6_48(   float const * i_a,
                                 float const * i_b,
                                 float       * io_c );
-"""    void gemm_asm_sve_128_48_48(   float const * i_a,
+    void gemm_asm_sve_128_48_48(   float const * i_a,
                                 float const * i_b,
-                                float       * io_c );"""
+                                float       * io_c );
 }
 
 
@@ -73,7 +73,7 @@ void benchmark_gemm_asm_sve_128_6_48() {
      * SVE: 128,6,48
      */
 
-    l_n_repetitions = 5000;
+    l_n_repetitions = 1000000;
 
     // run reference implementation
     gemm_ref(   l_a, 
@@ -119,7 +119,7 @@ void benchmark_gemm_asm_sve_128_6_48() {
 }
 
 
-"""void benchmark_gemm_asm_sve_128_48_48() {
+void benchmark_gemm_asm_sve_128_48_48() {
     std::cout << "Run benchmark gemm_asm_sve_128_48_48\n";
 
     //variables for time measurement
@@ -151,7 +151,7 @@ void benchmark_gemm_asm_sve_128_6_48() {
      * SVE: 128,48,48
      */
 
-    l_n_repetitions = 5000000;
+    l_n_repetitions = 50000;
 
     // run reference implementation
     gemm_ref(   l_a, 
@@ -194,7 +194,7 @@ void benchmark_gemm_asm_sve_128_6_48() {
     l_gflops *= 1.0E-9;
     l_gflops /= l_dur.count();
     std::cout << " GFLOPS: " << l_gflops << std::endl;
-}"""
+}
 
 
 
@@ -202,7 +202,7 @@ void benchmark_gemm_asm_sve_128_6_48() {
 int main(){
 
     benchmark_gemm_asm_sve_128_6_48();
-    //benchmark_gemm_asm_sve_128_48_48();
+    benchmark_gemm_asm_sve_128_48_48();
 
     return EXIT_SUCCESS;    
 }
