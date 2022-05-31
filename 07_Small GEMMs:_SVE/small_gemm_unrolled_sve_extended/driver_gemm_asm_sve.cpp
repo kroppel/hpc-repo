@@ -117,7 +117,7 @@ void benchmark_gemm_asm_sve_128_6_48() {
     l_gflops *= 1.0E-9;
     l_gflops /= l_dur.count();
     std::cout << " GFLOPS: " << l_gflops << std::endl;
-    std::cout << " %PEAK: " << l_gflops/(1.8E9*2*2*16) << std::endl;
+    std::cout << " %PEAK: " << l_gflops/(1.8*2*2*16) << std::endl;
 }
 
 
@@ -153,7 +153,7 @@ void benchmark_gemm_asm_sve_128_48_48() {
      * SVE: 128,48,48
      */
 
-    l_n_repetitions = 50000;
+    l_n_repetitions = 200000;
 
     // run reference implementation
     gemm_ref(   l_a, 
@@ -197,7 +197,7 @@ void benchmark_gemm_asm_sve_128_48_48() {
     l_gflops *= 1.0E-9;
     l_gflops /= l_dur.count();
     std::cout << " GFLOPS: " << l_gflops << std::endl;
-    std::cout << " %PEAK: " << l_gflops/(1.8E9*2*2*16) << std::endl;
+    std::cout << " %PEAK: " << l_gflops/(1.8*2*2*16) << std::endl;
 }
 
 

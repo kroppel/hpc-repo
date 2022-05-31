@@ -9,6 +9,13 @@
 2. Optimize your matrix kernel. Respect the rules of Section 7.2. Report and document your optimizations.  
 
 3. Submit the metrics “time (s)”, “#executions”, “GFLOPS” and “%peak” together with your team name for your best-performing variant.  
+   
+#### gemm_asm_sve_128_6_48:
+
+| Team name   | time (s)  | #Executions   | GFLOPS  | %PEAK |   
+| ----------- | --------- | ------------  | ------- | ----- |    
+| HPC-Lovers  | 0.901105  | 1000000       | 81.8195 | 71.02 | 
+
 
 
 ### 7.2 Loop over N
@@ -18,3 +25,9 @@
 2. Optimize your matrix kernel. Respect the rules of Section 7.2. Report and document your optimizations.
 
 3. Submit the metrics “time (s)”, “#executions”, “GFLOPS” and “%peak” together with your team name for your best-performing variant.
+
+#### gemm_asm_sve_128_48_48:
+
+| Team name   | time (s)  | #Executions   | GFLOPS  | %PEAK |   
+| ----------- | --------- | ------------  | ------- | ----- |    
+| HPC-Lovers  | 1.45345   | 200000        | 81.1618 | 70.45 | 
