@@ -111,11 +111,13 @@ void benchmark_gemm_asm_sve_128_6_48() {
     l_dur = std::chrono::duration_cast<std::chrono::duration<double>> (l_tp1 - l_tp0);
 
     std::cout << " duration: " << l_dur.count() << " seconds" << "\n";
+    std::cout << " #executions: " << l_n_repetitions << std::endl;
     l_gflops = l_n_repetitions;
     l_gflops *= 128 * 6 * 48 * 2;
     l_gflops *= 1.0E-9;
     l_gflops /= l_dur.count();
     std::cout << " GFLOPS: " << l_gflops << std::endl;
+    std::cout << " %PEAK: " << l_gflops/(1.8E9*2*2*16) << std::endl;
 }
 
 
@@ -189,14 +191,14 @@ void benchmark_gemm_asm_sve_128_48_48() {
     l_dur = std::chrono::duration_cast<std::chrono::duration<double>> (l_tp1 - l_tp0);
 
     std::cout << " duration: " << l_dur.count() << " seconds" << "\n";
+    std::cout << " #executions: " << l_n_repetitions << std::endl;
     l_gflops = l_n_repetitions;
     l_gflops *= 128 * 48 * 48 * 2;
     l_gflops *= 1.0E-9;
     l_gflops /= l_dur.count();
     std::cout << " GFLOPS: " << l_gflops << std::endl;
+    std::cout << " %PEAK: " << l_gflops/(1.8E9*2*2*16) << std::endl;
 }
-
-
 
 
 int main(){
