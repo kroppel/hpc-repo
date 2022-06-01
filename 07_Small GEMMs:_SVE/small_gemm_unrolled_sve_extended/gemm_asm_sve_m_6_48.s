@@ -16,19 +16,8 @@
 gemm_asm_sve_m_6_48:
         // set predicate register to true
         ptrue p0.b
-
-        mov x5, #0 
-loop_load_c:
-        whilelt p1.s, x5, x3
-        b.CS end_loop_load_c
-        add x5, x5, #16
-
-        ldr z0, [x2]
-        add x2, x2, #16*4
-
-end_loop_load_c:
-        ld1w 
-
+        ptrue p1.b
+        sub p1, p1, #1
 
 
         //matrix kernel64
@@ -38,8 +27,8 @@ end_loop_load_c:
         add x2, x2, #16*4
         ldr z2, [x2]
         add x2, x2, #16*4
-        ldr z3, [x2]
-        add x2, x2, #16*4
+        ld1w {z3.s}, p1.s, [x2]
+        add x2, x2, #15*4
 
         ldr z4, [x2]
         add x2, x2, #16*4
@@ -47,8 +36,8 @@ end_loop_load_c:
         add x2, x2, #16*4
         ldr z6, [x2]
         add x2, x2, #16*4
-        ldr z7, [x2]
-        add x2, x2, #16*4
+        ld1w {z7.s}, p1.s, [x2]
+        add x2, x2, #15*4
 
         ldr z8, [x2]
         add x2, x2, #16*4
@@ -56,8 +45,8 @@ end_loop_load_c:
         add x2, x2, #16*4
         ldr z10, [x2]
         add x2, x2, #16*4
-        ldr z11, [x2]
-        add x2, x2, #16*4
+        ld1w {z11.s}, p1.s, [x2]
+        add x2, x2, #15*4
 
         ldr z12, [x2]
         add x2, x2, #16*4
@@ -65,8 +54,8 @@ end_loop_load_c:
         add x2, x2, #16*4
         ldr z14, [x2]
         add x2, x2, #16*4
-        ldr z15, [x2]
-        add x2, x2, #16*4
+        ld1w {z15.s}, p1.s, [x2]
+        add x2, x2, #15*4
 
         ldr z16, [x2]
         add x2, x2, #16*4
@@ -74,8 +63,8 @@ end_loop_load_c:
         add x2, x2, #16*4
         ldr z18, [x2]
         add x2, x2, #16*4
-        ldr z19, [x2]
-        add x2, x2, #16*4
+        ld1w {z19.s}, p1.s, [x2]
+        add x2, x2, #15*4
 
         ldr z20, [x2]
         add x2, x2, #16*4
@@ -83,8 +72,8 @@ end_loop_load_c:
         add x2, x2, #16*4
         ldr z22, [x2]
         add x2, x2, #16*4
-        ldr z23, [x2]
-        sub x2, x2, #23*16*4
+        ld1w {z23.s}, p1.s, [x2]
+        sub x2, x2, #6*3*16*4 + 5*15*4
 
         // initialize loop var to 0
         eor x4, x4, x4
@@ -134,8 +123,8 @@ GEMM_LOOP:
         //load second half of A
         ldr z30, [x0]
         add x0, x0, #16*4
-        ldr z31, [x0]
-        add x0, x0, #16*4
+        ld1w z31, p1.s, [x0]
+        add x0, x0, #15*4
 
         //second part of calculation C += AB
 
@@ -168,8 +157,8 @@ GEMM_LOOP:
         add x2, x2, #16*4
         str z2, [x2]
         add x2, x2, #16*4
-        str z3, [x2]
-        add x2, x2, #16*4
+        st1w z3.s, p1, [x2]
+        add x2, x2, #15*4
 
         str z4, [x2]
         add x2, x2, #16*4
@@ -177,8 +166,8 @@ GEMM_LOOP:
         add x2, x2, #16*4
         str z6, [x2]
         add x2, x2, #16*4
-        str z7, [x2]
-        add x2, x2, #16*4
+        st1w z7.s, p1, [x2]
+        add x2, x2, #15*4
 
         str z8, [x2]
         add x2, x2, #16*4
@@ -186,8 +175,8 @@ GEMM_LOOP:
         add x2, x2, #16*4
         str z10, [x2]
         add x2, x2, #16*4
-        str z11, [x2]
-        add x2, x2, #16*4
+        st1w z11.s, p1, [x2]
+        add x2, x2, #15*4
 
         str z12, [x2]
         add x2, x2, #16*4
@@ -195,8 +184,8 @@ GEMM_LOOP:
         add x2, x2, #16*4
         str z14, [x2]
         add x2, x2, #16*4
-        str z15, [x2]
-        add x2, x2, #16*4
+        st1w z15.s, p1, [x2]
+        add x2, x2, #15*4
 
         str z16, [x2]
         add x2, x2, #16*4
@@ -204,8 +193,8 @@ GEMM_LOOP:
         add x2, x2, #16*4
         str z18, [x2]
         add x2, x2, #16*4
-        str z19, [x2]
-        add x2, x2, #16*4
+        st1w z19.s, p1, [x2]
+        add x2, x2, #15*4
 
         str z20, [x2]
         add x2, x2, #16*4
@@ -213,8 +202,8 @@ GEMM_LOOP:
         add x2, x2, #16*4
         str z22, [x2]
         add x2, x2, #16*4
-        str z23, [x2]
-        sub x2, x2, #23*16*4
+        st1w z23.s, p1, [x2]
+        sub x2, x2, #18*16*4 + 5*15*4
 
         ret
         .size gemm_asm_sve_m_6_48, (. - gemm_asm_sve_m_6_48)
