@@ -1,24 +1,25 @@
         .text
-        .type gemm_asm_sve_m_6_48, %function
-        .global gemm_asm_sve_m_6_48
+        .type gemm_asm_sve_63_6_48, %function
+        .global gemm_asm_sve_63_6_48
 
         /*
          * Performs the matrix-multiplication C+=A*B
-         * with the shapes (mx6) = (mx48) * (48x6).
+         * with the shapes (63x6) = (63x48) * (48x6).
          * The input-data is of type float.
          *
          * @param x0 pointer to A.
          * @param x1 pointer to B.
          * @param x2 pointer to C.
-         * @param x3 value of m.
          */ 
 
-gemm_asm_sve_m_6_48:
+gemm_asm_sve_63_6_48:
         // set predicate register to true
         ptrue p0.b
-        ptrue p1.b
-        sub p1, p1, #1
 
+        mov x5, #0
+        mov x6, #15
+
+        whilelt p1.s, x5, x6
 
         //matrix kernel64
         ldr z0, [x2]
@@ -27,7 +28,7 @@ gemm_asm_sve_m_6_48:
         add x2, x2, #16*4
         ldr z2, [x2]
         add x2, x2, #16*4
-        ld1w {z3.s}, p1.s, [x2]
+        ld1w {z3.s}, p1/z, [x2]
         add x2, x2, #15*4
 
         ldr z4, [x2]
@@ -36,7 +37,7 @@ gemm_asm_sve_m_6_48:
         add x2, x2, #16*4
         ldr z6, [x2]
         add x2, x2, #16*4
-        ld1w {z7.s}, p1.s, [x2]
+        ld1w {z7.s}, p1/z, [x2]
         add x2, x2, #15*4
 
         ldr z8, [x2]
@@ -45,7 +46,7 @@ gemm_asm_sve_m_6_48:
         add x2, x2, #16*4
         ldr z10, [x2]
         add x2, x2, #16*4
-        ld1w {z11.s}, p1.s, [x2]
+        ld1w {z11.s}, p1/z, [x2]
         add x2, x2, #15*4
 
         ldr z12, [x2]
@@ -54,7 +55,7 @@ gemm_asm_sve_m_6_48:
         add x2, x2, #16*4
         ldr z14, [x2]
         add x2, x2, #16*4
-        ld1w {z15.s}, p1.s, [x2]
+        ld1w {z15.s}, p1/z, [x2]
         add x2, x2, #15*4
 
         ldr z16, [x2]
@@ -63,7 +64,7 @@ gemm_asm_sve_m_6_48:
         add x2, x2, #16*4
         ldr z18, [x2]
         add x2, x2, #16*4
-        ld1w {z19.s}, p1.s, [x2]
+        ld1w {z19.s}, p1/z, [x2]
         add x2, x2, #15*4
 
         ldr z20, [x2]
@@ -72,7 +73,7 @@ gemm_asm_sve_m_6_48:
         add x2, x2, #16*4
         ldr z22, [x2]
         add x2, x2, #16*4
-        ld1w {z23.s}, p1.s, [x2]
+        ld1w {z23.s}, p1/z, [x2]
         sub x2, x2, #6*3*16*4 + 5*15*4
 
         // initialize loop var to 0
@@ -123,7 +124,7 @@ GEMM_LOOP:
         //load second half of A
         ldr z30, [x0]
         add x0, x0, #16*4
-        ld1w z31, p1.s, [x0]
+        ld1w {z31.s}, p1/z, [x0]
         add x0, x0, #15*4
 
         //second part of calculation C += AB
@@ -206,4 +207,4 @@ GEMM_LOOP:
         sub x2, x2, #18*16*4 + 5*15*4
 
         ret
-        .size gemm_asm_sve_m_6_48, (. - gemm_asm_sve_m_6_48)
+        .size gemm_asm_sve_63_6_48, (. - gemm_asm_sve_63_6_48)
