@@ -12,6 +12,10 @@ extern "C" {
     void gemm_asm_sve_128_48_48(   float const * i_a,
                                 float const * i_b,
                                 float       * io_c );
+    void gemm_asm_sve_m_48_48(   float const * i_a,
+                                float const * i_b,
+                                float       * io_c,
+                                unsigned int i_m);
 }
 
 
