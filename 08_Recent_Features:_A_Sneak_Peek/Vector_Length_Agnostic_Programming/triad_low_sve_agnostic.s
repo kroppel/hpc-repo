@@ -14,19 +14,19 @@
          */ 
 
 triad_low_sve_agnostic:
-
+        ptrue p0.s
         eor x29, x29, x29 // constantly zero
         eor x4, x4, x4 // + accumulate of p0
-        fmov x6, #2.0
+        fmov z3.s, p0/m, #2.0
 
-repeat: whilelt p0.s x29, x0 // set at most @{x0} entries of p0
+repeat: whilelt p0.s, x29, x0 // set at most @{x0} entries of p0
 
-        ld1w p0/z w1, [x1] // get next part of A
-        ld1w p0/z w2, [x2] // get next part of B
-        fmla p0 w1, w2, x6 // triad for current part: w1 = w2*x6 + w1
-        st1w p0/m w1, [x3] // write results back
+        ld1w {z1.s}, p0/z, [x1] // get next part of A
+        ld1w {z2.s}, p0/z, [x2] // get next part of B
+        fmla z1.s, p0/m, z2.s, z3.s // triad for current part: w1 = w2*x6 + w1
+        st1w {z1.s}, p0, [x3] // write results back
 
-        incw p0, x4 // number of items processed in this iteration
+        incp x4, p0.s // number of items processed in this iteration
         add x1, x1, x4
         add x2, x2, x4
         add x3, x3, x4
