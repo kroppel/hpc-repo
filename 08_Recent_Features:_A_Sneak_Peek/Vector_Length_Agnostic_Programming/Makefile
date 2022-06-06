@@ -1,9 +1,12 @@
 BUILD_DIR = ./build
 
-gemm_asm_sve: driver_triad.cpp
+triad: driver_triad.cpp triad_low_sve_agnostic.s triad_high.h
 		gcc -pedantic -Wall -Wextra -Werror -march=armv8-a+sve -g -c triad_low_sve_agnostic.s -o ${BUILD_DIR}/triad_low_sve_agnostic.o
-		g++ -pedantic -Wall -Wextra -Werror -g driver_triad.cpp triad_high.h  ${BUILD_DIR}/triad_low_sve_agnostic.o -o ${BUILD_DIR}/triad
+		g++ -pedantic -Wall -Wextra -g driver_triad.cpp ${BUILD_DIR}/triad_low_sve_agnostic.o -o ${BUILD_DIR}/triad
 
 all: triad
+
+clean:
+	rm -rf build
 
 $(shell mkdir -p build)
