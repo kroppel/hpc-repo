@@ -13,6 +13,11 @@ extern "C" {
                 float          * o_c );
 }
 
+/*void triad_high(uint64_t i_nValues, float const * i_a, float const * i_b, float * o_c) {
+    for( uint64_t l_va = 0; l_va < i_nValues; l_va++ ) {
+        o_c[l_va] = i_a[l_va] + 2.0f * i_b[l_va];
+    }
+}*/
 
 double mat_diff_sum(float * c1, float * c2, unsigned int m, unsigned int n) {
     double diff = 0;
@@ -51,7 +56,7 @@ void benchmark_triad_low() {
     }
 
 
-    l_n_repetitions = 2000000;
+    l_n_repetitions = 20000;
 
     // run reference implementation
     triad_high(nValues, l_a, l_b, l_c);
@@ -79,7 +84,7 @@ void benchmark_triad_low() {
     std::cout << " duration: " << l_dur.count() << " seconds" << "\n";
     std::cout << " #executions: " << l_n_repetitions << std::endl;
     l_gflops = l_n_repetitions;
-    l_gflops *= 63 * 6 * 48 * 2;
+    l_gflops *= nValues * 2;     // nValues -> Anzahl der werte in jedem Vektor; 2 -> FMLA
     l_gflops *= 1.0E-9;
     l_gflops /= l_dur.count();
     std::cout << " GFLOPS: " << l_gflops << std::endl;
