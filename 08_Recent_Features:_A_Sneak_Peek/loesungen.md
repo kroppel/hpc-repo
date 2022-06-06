@@ -1,4 +1,4 @@
-# Serie 8/9
+# Serie 8
 
 ## Aufgabenstellung:
 
@@ -17,12 +17,15 @@
 | ----------- | --------- | ------------  | ------- | ----- |    
 | HPC-Lovers  | 0.910881  | 2000000       | 79.6767 | 69.16 |
 
+# Serie 9
+
+## Aufgabenstellung:
 
 ### 9. Recent Features: A Sneak Peek
 
 ### 9.1. Arm Instruction Emulator
 
-![Task 9.1.](small_gemm_unrolled_sve/benchmark.PNG)
+![Task 9.1.](https://github.com/rauschinger/hpc-repo/blob/main/08_Recent_Features:_A_Sneak_Peek/tasks_1.png)
 
 https://developer.arm.com/documentation/102190/latest  
 
@@ -33,7 +36,7 @@ libmemtrace_emulated.so
 
 ### 9.2. Vector Length Agnostic Programming
 
-![Task 9.2.](small_gemm_unrolled_sve/benchmark.PNG)
+![Task 9.2.](https://github.com/rauschinger/hpc-repo/blob/main/08_Recent_Features:_A_Sneak_Peek/tasks_2.png)
 
 triad_low_sve_agnostic ausgeführt mit ArmIE für verschiedene Registerbreiten:
 
@@ -71,4 +74,4 @@ Difference is 0
 ### 9.3. SVE2
 
 
- ![Task 9.3.](08_Recent_Features:_A_Sneak_Peek/tasks_3.png)
+ ![Task 9.3.](https://github.com/rauschinger/hpc-repo/blob/main/08_Recent_Features:_A_Sneak_Peek/tasks_3.png)
