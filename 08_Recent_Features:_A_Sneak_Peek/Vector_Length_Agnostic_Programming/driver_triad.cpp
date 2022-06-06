@@ -50,7 +50,7 @@ void benchmark_triad_low() {
     }
 
 
-    l_n_repetitions = 20000;
+    l_n_repetitions = 200000;
 
     // run reference implementation
     triad_high(nValues, l_a, l_b, l_c_ref);
