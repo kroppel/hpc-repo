@@ -13,12 +13,6 @@ extern "C" {
                 float          * o_c );
 }
 
-/*void triad_high(uint64_t i_nValues, float const * i_a, float const * i_b, float * o_c) {
-    for( uint64_t l_va = 0; l_va < i_nValues; l_va++ ) {
-        o_c[l_va] = i_a[l_va] + 2.0f * i_b[l_va];
-    }
-}*/
-
 double mat_diff_sum(float * c1, float * c2, unsigned int m, unsigned int n) {
     double diff = 0;
     for (unsigned int i = 0; i < n*m; i++) {
@@ -38,7 +32,7 @@ void benchmark_triad_low() {
     double l_gflops = 0;
     uint64_t nValues = 100;
 
-    //Matrizen A, B, C
+    //Vectors A, B, C
     float l_a[nValues] = {0};
     float l_b[nValues] = {0};
     
@@ -46,7 +40,7 @@ void benchmark_triad_low() {
 
     float l_c[nValues] = {0};
 
-    // fill matrices
+    // fill vectors
     srand48(time(NULL));
     for (unsigned int i = 0; i < nValues; i++) {
         l_a[i] = (float) drand48();
@@ -59,7 +53,7 @@ void benchmark_triad_low() {
     l_n_repetitions = 20000;
 
     // run reference implementation
-    triad_high(nValues, l_a, l_b, l_c);
+    triad_high(nValues, l_a, l_b, l_c_ref);
 
 
     // run kernel for validation and dry run
