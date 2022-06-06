@@ -29,10 +29,6 @@
 
 https://developer.arm.com/documentation/102190/latest  
 
-libinscount_emulated.so  
-
-libmemtrace_emulated.so  
-
 
 ### 9.2. Vector Length Agnostic Programming
 
@@ -41,6 +37,7 @@ libmemtrace_emulated.so
 triad_low_sve_agnostic ausgeführt mit ArmIE für verschiedene Registerbreiten:
 
 
+```
 [hgf_qei8127@ftp-a64n1 Vector_Length_Agnostic_Programming]$ armie -msve-vector-bits=128 ./build/triad  
 Run benchmark triad_low  
 Difference is 0  
@@ -68,7 +65,9 @@ Difference is 0
  duration: 3.93599 seconds  
  #executions: 200000  
  GFLOPS: 0.0101626  
- %PEAK: 8.82173e-05  
+ %PEAK: 8.82173e-05 
+```
+
 
 
 ### 9.3. SVE2
