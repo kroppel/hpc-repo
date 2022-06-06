@@ -1,3 +1,40 @@
+# Serie 8/9
+
+## Aufgabenstellung:
+
+### 8.3 Arbitrary Values for M
+
+
+1. Implement and verify the matrix kernel C += AB for M=63, N=6, K=48, ldA=63, ldB=48, ldC=63. Use predicated SVE instructions to tackle which is not a multiple of 16. Re-use the code of your microkernel, implemented in Section 7.2.
+
+2. Optimize your matrix kernel. Respect the rules of Section 7.2. Report and document your optimizations.
+
+3. Submit the metrics “time (s)”, “#executions”, “GFLOPS” and “%peak” together with your team name for your best-performing variant.
+
+#### gemm_asm_sve_63_6_48:
+
+| Team name   | time (s)  | #Executions   | GFLOPS  | %PEAK |   
+| ----------- | --------- | ------------  | ------- | ----- |    
+| HPC-Lovers  | 0.910881  | 2000000       | 79.6767 | 69.16 |
+
+
+### 9. Recent Features: A Sneak Peek
+
+### 9.1. Arm Instruction Emulator
+
+![Task 9.1.](small_gemm_unrolled_sve/benchmark.PNG)
+
+https://developer.arm.com/documentation/102190/latest  
+
+libinscount_emulated.so  
+
+libmemtrace_emulated.so  
+
+
+### 9.2. Vector Length Agnostic Programming
+
+![Task 9.2.](small_gemm_unrolled_sve/benchmark.PNG)
+
 triad_low_sve_agnostic ausgeführt mit ArmIE für verschiedene Registerbreiten:
 
 
@@ -29,3 +66,9 @@ Difference is 0
  #executions: 200000  
  GFLOPS: 0.0101626  
  %PEAK: 8.82173e-05  
+
+
+### 9.3. SVE2
+
+
+ ![Task 9.3.](08_Recent_Features:_A_Sneak_Peek/tasks_3.png)
