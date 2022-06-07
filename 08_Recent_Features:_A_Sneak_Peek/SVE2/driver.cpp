@@ -8,7 +8,7 @@
 
 
 extern "C" {
-    void fmlalb_fmlalt(      float    const * i_a,
+    void fmlalx(      float    const * i_a,
                 float    const * i_b,
                 float          * o_c );
     void eor3( unsigned int  * i_a,
@@ -23,7 +23,7 @@ void example_fmlalt() {
     float l_c[16] = {0};
 
 
-    fmlalb_fmlalt(l_a, l_b, l_c);
+    fmlalx(l_a, l_b, l_c);
 
     std::cout << "C: ";
     for (int i = 0; i < 32; i++) {
@@ -53,17 +53,39 @@ void example_eor() {
 
     assert(equal && "Test 1 failed");
 
-    // Test 3
-    unsigned int l_a2[16]     = {0x0F0F0F0F};
-    unsigned int l_b2[16]     = {0x33333333};
-    unsigned int l_c2[16]     = {0x55555555};
-    unsigned int l_c_exp2[16] = {0x69696969};
+    // Test 2
+    unsigned int l_a2[16] = (unsigned int *) malloc(16*4);
+    unsigned int l_b2[16] = (unsigned int *) malloc(16*4);
+    unsigned int l_c2[16] = (unsigned int *) malloc(16*4);
+    // ~ is bitwise negation
+    for (int i = 0; i < 16; ++i) l_c2[i] = ~l_b2[i];
+    unsigned int l_expect2[16] = (unsigned int *) malloc(16*4);
+    for (int i = 0; i < 16; ++i) l_expect2[i] = ~l_a2[i];
 
-    eor3(l_a2, l_b2, l_c2);
+    for (int i = 0; i < 16; i++) {
+        if (l_c2[i] != l_c_expect2[i]) {
+            equal = false;
+        }
+    }
+
+    free(l_a2);
+    free(l_b2);
+    free(l_c2);
+    free(l_expect2);
+
+    assert(equal && "Test 2 failed");
+
+    // Test 3
+    unsigned int l_a3[16]     = {0x0F0F0F0F};
+    unsigned int l_b3[16]     = {0x33333333};
+    unsigned int l_c3[16]     = {0x55555555};
+    unsigned int l_c_exp3[16] = {0x69696969};
+
+    eor3(l_a3, l_b3, l_c3);
 
     equal = true;
     for (int i = 0; i < 16; i++) {
-        if (l_c2[i] != l_c_exp2[i]) {
+        if (l_c3[i] != l_c_exp3[i]) {
             equal = false;
         }
     }
