@@ -9,9 +9,15 @@ extern "C" {
     void fmlalb(      float    const * i_a,
                 float    const * i_b,
                 float          * o_c );
+    void fmlalt(      float    const * i_a,
+                float    const * i_b,
+                float          * o_c );
+    void eor(      float    const * i_a,
+                float    const * i_b,
+                float          * o_c );
 }
 
-int main(){
+int main() {
 
     //Vectors A, B, C
     float const l_a[32] = {0};
