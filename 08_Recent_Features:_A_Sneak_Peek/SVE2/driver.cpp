@@ -3,33 +3,39 @@
 #include <cassert>
 #include <iostream>
 #include <cmath>
-#include <chrono>
 #include <cstring>
 
 
 extern "C" {
-    void fmlalx(      float    const * i_a,
-                float    const * i_b,
-                float          * o_c );
+    void fmlalx(float16_t const * i_a,
+                float16_t const * i_b,
+                float16_t       * io_c );
     void eor3( unsigned int  * i_a,
                unsigned int  * i_b,
                unsigned int  * o_c );
 }
 
-void example_fmlalt() {
-    //Vectors A, B, C
-    float l_a[32] = {0};
-    float l_b[32] = {0};
-    float l_c[16] = {0};
+void example_fmlalx()
+{
+  // vectors as, bs, cs, expect
+  float16_t[32] as, bs;
+  float[16] cs, expect;
+  for (int k=0; k < 16; ++k)
+  {
+    as[2*k] = (2^(2*k)-1) / 32.0;
+    bs[2*k] = 1.0/(2^k+1) / 32.0;
+    as[2*k+1] = (2^(2*(n-k)-1)) / 32.0;
+    bs[2*k+1] = 1.0/(2^(n-k)+1) / 32.0;
+    cs[k] = .0;
+    expect[k] = (2^k + 2^(n-k) - 4) / 1024.0;
+  }
 
+  fmlalx(as, bs, cs);
 
-    fmlalx(l_a, l_b, l_c);
+  bool equal = true;
+  for (int i = 0; i < 16; i++)
+    assert(cs[i] != expect[i] && "fmlalx test failed");
 
-    std::cout << "C: ";
-    for (int i = 0; i < 32; i++) {
-        std::cout << i << ", ";
-    } 
-    std::cout << "\n";
 }
 
 void example_eor() {
