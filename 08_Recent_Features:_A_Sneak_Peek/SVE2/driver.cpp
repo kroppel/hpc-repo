@@ -54,13 +54,13 @@ void example_eor() {
     assert(equal && "Test 1 failed");
 
     // Test 2
-    unsigned int l_a2[16] = (unsigned int *) malloc(16*4);
-    unsigned int l_b2[16] = (unsigned int *) malloc(16*4);
-    unsigned int l_c2[16] = (unsigned int *) malloc(16*4);
+    unsigned int * l_a2 = (unsigned int *) malloc(16*4);
+    unsigned int * l_b2 = (unsigned int *) malloc(16*4);
+    unsigned int * l_c2 = (unsigned int *) malloc(16*4);
     // ~ is bitwise negation
     for (int i = 0; i < 16; ++i) l_c2[i] = ~l_b2[i];
-    unsigned int l_expect2[16] = (unsigned int *) malloc(16*4);
-    for (int i = 0; i < 16; ++i) l_expect2[i] = ~l_a2[i];
+    unsigned int * l_c_expect2 = (unsigned int *) malloc(16*4);
+    for (int i = 0; i < 16; ++i) l_c_expect2[i] = ~l_a2[i];
 
     for (int i = 0; i < 16; i++) {
         if (l_c2[i] != l_c_expect2[i]) {
@@ -71,7 +71,7 @@ void example_eor() {
     free(l_a2);
     free(l_b2);
     free(l_c2);
-    free(l_expect2);
+    free(l_c_expect2);
 
     assert(equal && "Test 2 failed");
 
