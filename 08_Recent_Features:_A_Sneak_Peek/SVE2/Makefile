@@ -1,8 +1,12 @@
 BUILD_DIR = ./build
 
-sve2: driver.cpp fmlalb.s
-	gcc -pedantic -Wall -Wextra -Werror -march=armv8-a+sve -g -c fmlalb.s -o ${BUILD_DIR}/fmlalb.o
-	g++ -pedantic -Wall -Wextra -g driver.cpp ${BUILD_DIR}/fmlalb.o -o ${BUILD_DIR}/sve2
+sve2: driver.cpp fmlalb_fmlalt.s eor3.s
+	clang -Wall -Wextra -Werror -march=armv8-a+sve2 -g -c fmlalb_fmlalt.s -o ${BUILD_DIR}/fmlalb_fmlalt.o
+	clang -Wall -Wextra -Werror -march=armv8-a+sve2 -g -c eor3.s -o ${BUILD_DIR}/eor3.o
+	clang++ -Wall -Wextra -g driver.cpp ${BUILD_DIR}/fmlalb_fmlalt.o ${BUILD_DIR}/eor3.o -o ${BUILD_DIR}/sve2
+	#gcc -pedantic -Wall -Wextra -Werror -march=armv8-a+sve2 -g -c fmlalb_fmlalt.s -o ${BUILD_DIR}/fmlalb_fmlalt.o
+	#gcc -pedantic -Wall -Wextra -Werror -march=armv8-a+sve2 -g -c eor3.s -o ${BUILD_DIR}/eor3.o
+	#g++ -pedantic -Wall -Wextra -g driver.cpp ${BUILD_DIR}/fmlalb_fmlalt.o ${BUILD_DIR}/eor3.o -o ${BUILD_DIR}/sve2
 
 all: sve2
 
