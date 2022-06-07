@@ -4,12 +4,13 @@
 #include <iostream>
 #include <cmath>
 #include <cstring>
+#include <arm_fp16.h>
 
 
 extern "C" {
     void fmlalx(float16_t const * i_a,
                 float16_t const * i_b,
-                float16_t       * io_c );
+                float       * io_c );
     void eor3( unsigned int  * i_a,
                unsigned int  * i_b,
                unsigned int  * o_c );
@@ -18,8 +19,11 @@ extern "C" {
 void example_fmlalx()
 {
   // vectors as, bs, cs, expect
-  float16_t[32] as, bs;
-  float[16] cs, expect;
+  float16_t as[32];
+  float16_t bs[32];
+  float cs[16];
+  float expect[16];
+  int n = 15;
   for (int k=0; k < 16; ++k)
   {
     as[2*k] = (2^(2*k)-1) / 32.0;
@@ -32,7 +36,6 @@ void example_fmlalx()
 
   fmlalx(as, bs, cs);
 
-  bool equal = true;
   for (int i = 0; i < 16; i++)
     assert(cs[i] != expect[i] && "fmlalx test failed");
 
@@ -100,7 +103,7 @@ void example_eor() {
 }
 
 int main() {
-
+    example_fmlalx();
     example_eor(); 
 }
 
