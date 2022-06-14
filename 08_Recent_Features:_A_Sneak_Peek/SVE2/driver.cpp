@@ -26,26 +26,18 @@ void example_fmlalx()
   int n = 15;
   for (int k=0; k < 16; ++k)
   {
-    as[2*k] = (2^(2*k)-1) / 8.0;
-    bs[2*k] = 1.0/(2^k+1) / 8.0;
-    as[2*k+1] = (2^(2*(n-k))-1) / 8.0;
-    bs[2*k+1] = 1.0/(2^(n-k)+1) / 8.0;
+    as[2*k] = (k*k-1) / 4.0;
+    bs[2*k] = 1.0/(k+1) / 4.0;
+    as[2*k+1] = ((n-k)*(n-k)-1) / 4.0;
+    bs[2*k+1] = 1.0/(n-k+1) / 4.0;
     cs[k] = .0;
-    expect[k] = (2^k + 2^(n-k) - 2) / 64.0;
-    if (k == 0) {
-        std::cerr << as[k] << " ";
-        std::cerr << bs[k]<< " ";
-        std::cerr << as[k+1]<< " ";
-        std::cerr << bs[k+1]<< " \n";
-    }
+    expect[k] = (n - 2) / 16.0;
   }
 
   fmlalx(as, bs, cs);
 
   for (int i = 0; i < 16; i++) {
-    std::cerr << cs[i] << ", ";
-    std::cerr << expect[i] << ", ";
-    assert(cs[i] == expect[i] && "fmlalx test failed");
+    assert(std::abs((cs[i]/expect[i])-1) < 1e-3  && "fmlalx test failed");
   }
 }
 
