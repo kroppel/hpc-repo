@@ -13,6 +13,15 @@ extern "C" {
                         float            * io_c );
 }
 
+void convert_a_to_bfmmla( uint64_t           i_m,
+                          uint64_t           i_n,
+                          uint64_t           i_ld,
+                          bfloat16_t const * i_a_col_major,
+                          bfloat16_t       * o_a_fmmla )
+{
+  for (int at = 0; at < i_n*i_m; ++at)
+    o_a_fmmla[i_m*(at%i_n) + (int)at/i_n] = i_a_col_major[at];
+}
 
 void gemm_ref( float        const * i_a,
                float        const * i_b,
