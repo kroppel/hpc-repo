@@ -32,13 +32,21 @@ void example_fmlalx()
     bs[2*k+1] = 1.0/(2^(n-k)+1) / 8.0;
     cs[k] = .0;
     expect[k] = (2^k + 2^(n-k) - 2) / 64.0;
+    if (k == 0) {
+        std::cerr << as[k] << " ";
+        std::cerr << bs[k]<< " ";
+        std::cerr << as[k+1]<< " ";
+        std::cerr << bs[k+1]<< " \n";
+    }
   }
 
   fmlalx(as, bs, cs);
 
-  for (int i = 0; i < 16; i++)
+  for (int i = 0; i < 16; i++) {
+    std::cerr << cs[i] << ", ";
+    std::cerr << expect[i] << ", ";
     assert(cs[i] == expect[i] && "fmlalx test failed");
-
+  }
 }
 
 void example_eor() {
