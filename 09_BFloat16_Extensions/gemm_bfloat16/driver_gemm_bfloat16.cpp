@@ -51,8 +51,8 @@ void benchmark_gemm_bfloat16() {
     double l_gflops = 0;
 
     // Matrizen A, B, C
-    bfloat16_t l_a[16*4] = {0};
-    bfloat16_t l_b[4*12] = {0};
+    bfloat16_t * l_a = (bfloat16_t*) malloc(16*4*2);
+    bfloat16_t * l_b = (bfloat16_t*) malloc(4*12*2);
     float l_c[16*12] = {0};
 
     // Matrizen für reference kernel
@@ -63,12 +63,12 @@ void benchmark_gemm_bfloat16() {
     // fill matrices
     srand48(time(NULL));
     for (int i = 0; i < 16*4; i++) {
-        float el_a = (float) drand48()
+        float el_a = (float) drand48();
         l_a[i] = vcvth_bf16_f32(el_a);
         l_a_ref[i] = vcvtah_f32_bf16(vcvth_bf16_f32(el_a));
     }
     for (int i = 0; i < 4*12; i++) {
-        float el_b = (float) drand48()
+        float el_b = (float) drand48();
         l_b[i] = vcvth_bf16_f32(el_b);
         l_b_ref[i] = vcvtah_f32_bf16(vcvth_bf16_f32(el_b));
     }
@@ -125,6 +125,9 @@ void benchmark_gemm_bfloat16() {
     std::cout << " GFLOPS: " << l_gflops << std::endl;
     // 2.6 GHZ -> processor speed of graviton3
     std::cout << " %PEAK: " << l_gflops/(2.6*2*2*16) << std::endl;
+
+    free(l_a);
+    free(l_b);
 }
 
 
