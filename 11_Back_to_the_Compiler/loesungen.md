@@ -15,3 +15,19 @@ to use vector instructions when processing the pointers, because he knows that t
 
 Prefer using signed integer index variables, as the compiler does not need to prove that it overflows and can optimize the code more easily. (Of course the programmer in this case has to make sure himself that no undefined behaviour occurs due to overflow).
 When writing loops using a unsigned integer index variable, prefer the usage of "<" as condition instead of "<=". This makes it easier for the compiler to prove that the variable does not wrap before loop termination leading to a non terminating loop.
+
+
+#### 2. Build the code with the GCC and LLVM toolchains. Generate vectorization reports with both toolchains. Convince at least one compiler to generate SVE code and disassemble it.
+
+GCC toolchain disassembler output:  
+
+![triad disassembler output](/home/konstantin/hpc-repo/11_Back_to_the_Compiler/disassembler_output_triad.png)
+
+GCC vectorization report:  
+
+![vectorization report gcc](/home/konstantin/hpc-repo/11_Back_to_the_Compiler/vectorization_report_gcc.png)
+
+CLANG vectorization report:  
+
+![vectorization report clang](/home/konstantin/hpc-repo/11_Back_to_the_Compiler/vectorization_report_clang.png)
+
