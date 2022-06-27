@@ -6,3 +6,12 @@
 
 
 ![Task 11.1.](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/11.1.png)
+
+#### 1. Read the Coding Considerations of the Arm Compiler Scalable Vector Extension User Guide Version. Name three hints which you consider most helpful for your future work and explain why. Explain at least one pragma which guides auto-vectorization.
+
+Use the __restrict__ keyword to tell the compiler that a specific pointer does not alias with any other pointer,
+that means does not point to the same or overlapping location in memory. By doing this, the compiler might be able
+to use vector instructions when processing the pointers, because he knows that they can be processed independently.
+
+Prefer using signed integer index variables, as the compiler does not need to prove that it overflows and can optimize the code more easily. (Of course the programmer in this case has to make sure himself that no undefined behaviour occurs due to overflow).
+When writing loops using a unsigned integer index variable, prefer the usage of "<" as condition instead of "<=". This makes it easier for the compiler to prove that the variable does not wrap before loop termination leading to a non terminating loop.
