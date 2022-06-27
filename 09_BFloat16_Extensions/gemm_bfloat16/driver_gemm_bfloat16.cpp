@@ -13,6 +13,62 @@ extern "C" {
                         float            * io_c );
 }
 
+void convert_a_to_bfmmla( uint64_t           i_m,
+                          uint64_t           i_n,
+                          uint64_t           i_ld,
+                          bfloat16_t const * i_a_col_major,
+                          bfloat16_t       * o_a_fmmla )
+{
+  for (int at = 0; at < i_n*i_m; ++at)
+    o_a_fmmla[i_m*(at%i_n) + (int)at/i_n] = i_a_col_major[at];
+}
+
+void convert_b_to_bfmmla( uint64_t           i_m,
+                          uint64_t           i_n,
+                          uint64_t           i_ld,
+                          bfloat16_t const * i_b_col_major,
+                          bfloat16_t       * o_b_fmmla )
+{
+  for (int at = 0; at < i_n*i_m; ++at)
+    o_b_fmmla[at] = i_b_col_major[at];
+}
+
+void convert_c_to_bfmmla( uint64_t         i_m,
+                          uint64_t         i_n,
+                          uint64_t         i_ld,
+                          float    const * i_c_col_major,
+                          float          * o_c_fmmla )
+{
+  int blkpos, cblk, rite, blk;
+  for (int at = 0; at < i_n*i_m; ++at)
+  {
+    cblk = (int)at/32;
+    blkpos = at % 32;
+    rite = (int)blkpos/16;
+    blkpos %= 16;
+    blk = blkpos/2;
+    blkpos %= 2;
+    o_c_fmmla[32*cblk + 2*rite + 4*blk + blkpos] = i_c_col_major[at];
+  }
+}
+void convert_c_from_bfmmla( uint64_t         i_m,
+                            uint64_t         i_n,
+                            uint64_t         i_ld,
+                            float    const * i_c_fmmla,
+                            float          * o_c_col_major )
+{
+  int blkpos, cblk, rite, blk;
+  for (int at = 0; at < i_n*i_m; ++at)
+  {
+    cblk = (int)at/32;
+    blkpos = at % 32;
+    rite = (int)blkpos/16;
+    blkpos %= 16;
+    blk = blkpos/2;
+    blkpos %= 2;
+    o_c_col_major[at] = i_c_fmmla[32*cblk + 2*rite + 4*blk + blkpos];
+  }
+}
 
 void gemm_ref( float        const * i_a,
                float        const * i_b,
@@ -51,8 +107,8 @@ void benchmark_gemm_bfloat16() {
     double l_gflops = 0;
 
     // Matrizen A, B, C
-    bfloat16_t l_a[16*4] = {0};
-    bfloat16_t l_b[4*12] = {0};
+    bfloat16_t * l_a = (bfloat16_t*) malloc(16*4*2);
+    bfloat16_t * l_b = (bfloat16_t*) malloc(4*12*2);
     float l_c[16*12] = {0};
 
     // Matrizen für reference kernel
@@ -63,12 +119,12 @@ void benchmark_gemm_bfloat16() {
     // fill matrices
     srand48(time(NULL));
     for (int i = 0; i < 16*4; i++) {
-        float el_a = (float) drand48()
+        float el_a = (float) drand48();
         l_a[i] = vcvth_bf16_f32(el_a);
         l_a_ref[i] = vcvtah_f32_bf16(vcvth_bf16_f32(el_a));
     }
     for (int i = 0; i < 4*12; i++) {
-        float el_b = (float) drand48()
+        float el_b = (float) drand48();
         l_b[i] = vcvth_bf16_f32(el_b);
         l_b_ref[i] = vcvtah_f32_bf16(vcvth_bf16_f32(el_b));
     }
@@ -125,6 +181,9 @@ void benchmark_gemm_bfloat16() {
     std::cout << " GFLOPS: " << l_gflops << std::endl;
     // 2.6 GHZ -> processor speed of graviton3
     std::cout << " %PEAK: " << l_gflops/(2.6*2*2*16) << std::endl;
+
+    free(l_a);
+    free(l_b);
 }
 
 
