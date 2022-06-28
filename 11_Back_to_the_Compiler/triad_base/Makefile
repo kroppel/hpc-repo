@@ -1,6 +1,6 @@
 BUILD_DIR = ./build
 
-BUILD_OPTIONS=-g -pedantic -Wall -Wextra -Werror -O2 -fopenmp
+BUILD_OPTIONS=-g -pedantic -Wall -Wextra -Werror -O2 -fopenmp -march=armv8-a+sve
 ifeq ($(CXX),g++)
 BUILD_OPT_REPORT=-ftree-vectorize -fopt-info-vec-all
 endif
