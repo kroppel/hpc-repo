@@ -36,17 +36,31 @@ CLANG vectorization report:
 
 #### 3. Verify optimization levels and flags for enabling/disabling vectorization discussed in the lectures.
 
-Additional compilation flags gcc: -g -pedantic -Wall -Wextra -Werror -O3 -fopenmp -ftree-vectorize -fopt-info-vec-all
-Additional compilation flags llvm: -g -pedantic -Wall -Wextra -Werror -O3 -fopenmp -Rpass=loop-vectorize -Rpass-missed=loop-vectorize -Rpass-analysis=loop-vectorize
+
+
+Additional compilation flags gcc: -g -pedantic -Wall -Wextra -Werror -fopenmp -ftree-vectorize -fopt-info-vec-all
+Additional compilation flags llvm: -g -pedantic -Wall -Wextra -Werror -fopenmp -Rpass=loop-vectorize -Rpass-missed=loop-vectorize -Rpass-analysis=loop-vectorize
 
 | Optimization Level | GCC       | LLVM      |
 | :----              | :----:    | :----:    |
 | O0                 | ![no vectorization performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-gcc-O0-with-additional-flags.png) | ![no vectorization performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-clang-O0-with-additional-flags.png) |
 | O2                 | ![vectorization with NEON instructions performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-gcc-O2-with-additional-flags.png) | ![vectorization with NEON instructions performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-clang-O2-with-additional-flags.png) |
 
-
-
+For GCC, unexpectedly the compiler did not perform any auto-vectorization for O0, even though the flag -ftree-vectorize was set.
+For LLVM it was surprising that there was no auto-vectorization for O0 as well, as it should be done so by default.
+In both cases it seems like the compiler did not evaluate possible vectorization options as benefitial for the overall performance.
+It also seems that higher optimization levels enabled the compiler to alter the code structure in a way that he could perform auto
+vectorization more easily.
 
 #### 4. Illustrate the impact of auto-vectorization by using an 1024 values for each of the three arrays. As always, repeat the experiment often enough such that the runtime exceeds one second.
+
+| Toolchain | Metrics no auto-vectorization | Metrics with auto-vectorization | Metrics with SVE auto-vectorization |
+| :----     | :----                         | :----                           | :----                               |
+| GCC       | _working with:_<br /> - N_VALUES: 1024, this means 0.00390625 MiB per array<br /> - N_REPEATS: 1000000<br />   _performance:_<br />- duration: 2.85349 seconds<br />- GFLOPS: 0.717718<br />- GiB/s: 4.01056<br /> | _working with:_<br /> - N_VALUES: 1024, this means 0.00390625 MiB per array<br /> - N_REPEATS: 10000000<br />   _performance:_<br />- duration: 1.12866 seconds<br />- GFLOPS: 18.1454<br />- GiB/s: 101.395<br /> | _working with:_<br /> - N_VALUES: 1024, this means 0.00390625 MiB per array<br /> - N_REPEATS: 10000000<br />   _performance:_<br />- duration: 1.13649 seconds<br />- GFLOPS: 18.0204<br />- GiB/s: 100.697<br /> |
+| LLVM       | _working with:_<br /> - N_VALUES: 1024, this means 0.00390625 MiB per array<br /> - N_REPEATS: 1000000<br />   _performance:_<br />- duration: 2.56674 seconds<br />- GFLOPS: 0.797899<br />- GiB/s: 4.45861<br /> | _working with:_<br /> - N_VALUES: 1024, this means 0.00390625 MiB per array<br /> - N_REPEATS: 10000000<br />   _performance:_<br />- duration: 1.34253 seconds<br />- GFLOPS: 15.2548<br />- GiB/s: 85.2426<br /> | _working with:_<br /> - N_VALUES: 1024, this means 0.00390625 MiB per array<br /> - N_REPEATS: 10000000<br />   _performance:_<br />- duration: 1.15006 seconds<br />- GFLOPS: 17.8078<br />- GiB/s: 99.5087<br /> |
+
+Both compilers can boost performance significantly with auto-vectorization, especially GCC, which improves by a factor of over 25.
+SVE for this example kernel shows no significant improvement in performance over NEON.  
+LLVM's generated code performs much worse than GCC's for NEON vectorization, but comes close to GCC's performance with SVE instrution usage.
 
 #### 5. Identify requirements on loops such that they are vectorizable. Now, deliberately break the auto-vectorization of the compiler by rewriting the triad function. Do this at least by making the loop uncountable and by using an external function inside of the loop. Confirm your experiments through respective vectorization reports and by disassembling the generated code.

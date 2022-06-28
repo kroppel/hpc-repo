@@ -1,11 +1,11 @@
 BUILD_DIR = ./build
 
-BUILD_OPTIONS=-g -pedantic -Wall -Wextra -Werror -O3 -fopenmp #-march=armv8-a+sve
+BUILD_OPTIONS=-g -pedantic -Wall -Wextra -Werror -O2 -fopenmp -march=armv8-a+sve
 ifeq ($(CXX),g++)
-#BUILD_OPT_REPORT=-ftree-vectorize -fopt-info-vec-all
+BUILD_OPT_REPORT=-ftree-vectorize -fopt-info-vec-all
 endif
 ifeq ($(CXX),clang++)
-#BUILD_OPT_REPORT=-Rpass=loop-vectorize -Rpass-missed=loop-vectorize -Rpass-analysis=loop-vectorize
+BUILD_OPT_REPORT=-Rpass=loop-vectorize -Rpass-missed=loop-vectorize -Rpass-analysis=loop-vectorize
 endif
 
 gemm_asm_sve: driver.cpp
