@@ -5,7 +5,7 @@
 ### 11.1. Automatic Vectorization
 
 
-![Task 11.1.](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/11.1.png)
+![Task 11.1.](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/11.1.png)
 
 #### 1. Read the Coding Considerations of the Arm Compiler Scalable Vector Extension User Guide Version. Name three hints which you consider most helpful for your future work and explain why. Explain at least one pragma which guides auto-vectorization.
 
@@ -24,15 +24,15 @@ When writing loops using a unsigned integer index variable, prefer the usage of 
 
 GCC toolchain disassembler output:  
 
-![triad disassembler output](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembler_output_triad.png)
+![triad disassembler output](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembler_output_triad.png)
 
 GCC vectorization report:  
 
-![vectorization report gcc](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/vectorization_report_gcc.png)
+![vectorization report gcc](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/vectorization_report_gcc.png)
 
 CLANG vectorization report:  
 
-![vectorization report clang](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/vectorization_report_clang.png)
+![vectorization report clang](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/vectorization_report_clang.png)
 
 #### 3. Verify optimization levels and flags for enabling/disabling vectorization discussed in the lectures.
 
@@ -41,8 +41,8 @@ Additional compilation flags llvm: -g -pedantic -Wall -Wextra -Werror -O3 -fopen
 
 | Optimization Level | GCC       | LLVM      |
 | :----              | :----:    | :----:    |
-| O0                 | ![no vectorization performed](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-gcc-O0-with-additional-flags.png) | ![no vectorization performed](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/clang-O0-with-additional-flags.png) |
-| O2                 | ![vectorization with NEON instructions performed](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-clang-O2-with-additional-flags.png) | ![vectorization with NEON instructions performed](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/gcc-O2-with-additional-flags.png) |
+| O0                 | ![no vectorization performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-gcc-O0-with-additional-flags.png) | ![no vectorization performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/clang-O0-with-additional-flags.png) |
+| O2                 | ![vectorization with NEON instructions performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-clang-O2-with-additional-flags.png) | ![vectorization with NEON instructions performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/gcc-O2-with-additional-flags.png) |
 
 
 
