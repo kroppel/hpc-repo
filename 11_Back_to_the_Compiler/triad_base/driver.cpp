@@ -1,14 +1,14 @@
 #include <iostream>
 #include <cmath>
 #include <chrono>
-#include "kernels/triad.h"
+#include "kernels/triad_non_vectorizable.h"
 
 /**
  * Benchmarks the different triad-implementations.
  *
  * @param i_nValues number of values in each of the arrays.
  * @param i_nRepeats nubmer of times the triads are executed.
- * @param i_type id of the triead-implementation.
+ * @param i_type id of the triad-implementation.
  **/
 void bench( uint64_t i_nValues,
             uint64_t i_nRepeats,
@@ -35,7 +35,7 @@ void bench( uint64_t i_nValues,
   l_tp0 = std::chrono::high_resolution_clock::now();
   if( i_type == 0 ) {
     for( uint64_t l_re = 0; l_re < i_nRepeats; l_re++ ) {
-      triad_simple( i_nValues,
+      triad_non_vectorizable( i_nValues,
                     l_a,
                     l_b,
                     l_c );
@@ -75,7 +75,7 @@ int main( int i_argc, char const * i_argv[] ) {
             << " MiB per array" << std::endl;
   std::cout << "  N_REPEATS: " << l_nRepeats << std::endl;
 
-  std::cout << "benchmarking triad_simple" << std::endl;
+  std::cout << "benchmarking triad_non_vectorizable" << std::endl;
   bench( l_nValues,
          l_nRepeats,
          0 );

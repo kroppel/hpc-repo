@@ -9,8 +9,8 @@ BUILD_OPT_REPORT=-Rpass=loop-vectorize -Rpass-missed=loop-vectorize -Rpass-analy
 endif
 
 gemm_asm_sve: driver.cpp
-	${CXX} ${BUILD_OPTIONS} ${BUILD_OPT_REPORT} -c kernels/triad.cpp -o ${BUILD_DIR}/kernels/triad.o
-	${CXX} ${BUILD_OPTIONS} driver.cpp ${BUILD_DIR}/kernels/triad.o -o ${BUILD_DIR}/auto_vec
+	${CXX} ${BUILD_OPTIONS} ${BUILD_OPT_REPORT} -c kernels/triad_non_vectorizable.cpp -o ${BUILD_DIR}/kernels/triad_non_vectorizable.o
+	${CXX} ${BUILD_OPTIONS} driver.cpp ${BUILD_DIR}/kernels/triad_non_vectorizable.o -o ${BUILD_DIR}/auto_vec
 
 $(shell mkdir -p build)
 $(shell mkdir -p build/kernels)
