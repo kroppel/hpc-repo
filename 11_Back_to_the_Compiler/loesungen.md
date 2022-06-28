@@ -21,13 +21,13 @@ When writing loops using a unsigned integer index variable, prefer the usage of 
 
 GCC toolchain disassembler output:  
 
-![triad disassembler output](/home/konstantin/hpc-repo/11_Back_to_the_Compiler/disassembler_output_triad.png)
+![triad disassembler output](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/disassembler_output_triad.png)
 
 GCC vectorization report:  
 
-![vectorization report gcc](/home/konstantin/hpc-repo/11_Back_to_the_Compiler/vectorization_report_gcc.png)
+![vectorization report gcc](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/vectorization_report_gcc.png)
 
 CLANG vectorization report:  
 
-![vectorization report clang](/home/konstantin/hpc-repo/11_Back_to_the_Compiler/vectorization_report_clang.png)
+![vectorization report clang](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/vectorization_report_clang.png)
 
