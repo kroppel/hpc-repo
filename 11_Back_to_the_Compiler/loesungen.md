@@ -36,10 +36,13 @@ CLANG vectorization report:
 
 #### 3. Verify optimization levels and flags for enabling/disabling vectorization discussed in the lectures.
 
+Additional compilation flags gcc: -g -pedantic -Wall -Wextra -Werror -O3 -fopenmp -ftree-vectorize -fopt-info-vec-all
+Additional compilation flags llvm: -g -pedantic -Wall -Wextra -Werror -O3 -fopenmp -Rpass=loop-vectorize -Rpass-missed=loop-vectorize -Rpass-analysis=loop-vectorize
+
 | Optimization Level | GCC       | LLVM      |
 | :----              | :----:    | :----:    |
-| O0                 | ![img1](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-gcc-O0-with-additional-flags.png) | ![img2](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/clang-O0-with-additional-flags.png) |
-| O2                 | ![img3](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-clang-O2-with-additional-flags.png) | ![img4](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/gcc-O2-with-additional-flags.png) |
+| O0                 | ![no vectorization performed](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-gcc-O0-with-additional-flags.png) | ![no vectorization performed](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/clang-O0-with-additional-flags.png) |
+| O2                 | ![vectorization with NEON instructions performed](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-clang-O2-with-additional-flags.png) | ![vectorization with NEON instructions performed](https://github.com/rauschinger/hpc-repo/blob/main/11_Back_to_the_Compiler/images/gcc-O2-with-additional-flags.png) |
 
 
 
