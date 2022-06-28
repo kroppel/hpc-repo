@@ -41,8 +41,8 @@ Additional compilation flags llvm: -g -pedantic -Wall -Wextra -Werror -O3 -fopen
 
 | Optimization Level | GCC       | LLVM      |
 | :----              | :----:    | :----:    |
-| O0                 | ![no vectorization performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-gcc-O0-with-additional-flags.png) | ![no vectorization performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/clang-O0-with-additional-flags.png) |
-| O2                 | ![vectorization with NEON instructions performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-clang-O2-with-additional-flags.png) | ![vectorization with NEON instructions performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/gcc-O2-with-additional-flags.png) |
+| O0                 | ![no vectorization performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-gcc-O0-with-additional-flags.png) | ![no vectorization performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-clang-O0-with-additional-flags.png) |
+| O2                 | ![vectorization with NEON instructions performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-clang-O2-with-additional-flags.png) | ![vectorization with NEON instructions performed](https://github.com/kroppel/hpc-repo/blob/main/11_Back_to_the_Compiler/images/disassembly-gcc-O2-with-additional-flags.png) |
 
 
 
