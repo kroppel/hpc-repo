@@ -1,0 +1,47 @@
+1. 
+FMUL: 
+used pipelines -> FP/ASIMD 0 and 1
+latency -> 3
+throughput -> 2
+
+FMLA: 
+used pipelines -> FP/ASIMD 0 and 1
+latency -> 4
+throughput -> 2
+
+2. 
+FMUL -> 2.5GH / 3 (cycles/instruction) * 4 (#Data elements SP) = 3.333 GFLOPS
+FMLA -> 2.5GH / 4 (cycles/instruction) * 4 (#Data elements SP) * 2 (#NR Operations) = 5 GFLOPS
+
+3.
+The benchmark result was ~939 GFLOPS on 160 Threads. So a single thread running on a
+core with one usable pipeline (due to the dependencies in the benchmark design) performed
+about 939/160 = ~5.87 GFLOPS. This is higher than the theoretical performance from Task 2
+for this benchmark, which means some of my assumtions are wrong.
+Maybe the clock frequency is not correct and it's actually 3GH.
+
+4.
+This benchmark's result was ~635 GFLOPS, so 3.97 GFLOPS per Thread and Core. Again
+it is higher than my expectation, so i guess the clock frequency is off.
+
+5.
+By increasing the distance between the RAW-dependencies, the operation throughput
+increases aswell as the instructions between the dependencies can be executed in
+parallel without any problem (given no other dependencies exist). Is the distance
+big enough, then the prior instruction is executed completely before the depending
+instuction started executing without any wait time occuring.
+
+6.
+By removing the RAW dependencies and only leaving the WAW dependencies,
+both FP/SIMD Pipelines can be used in parallel for execution, and only for the last
+step that shares the destination register the execution has to be serial.
+This results in an almost complete masking of the instruction latency for the FMUL instruction.
+FMLA on the other hand could not profit as much from these changes as FMUL, probably
+due to the fact that it includes the add operation onto the dst register and not
+only a simple store.
+
+FMUL benchmark:
+3754 GFLOPS -> 23.46 GFLOPS per core -> 11,73 GFLOPS per pipeline
+
+FMLA benchmark:
+1895 GFLOPS -> 11,84 GFLOPS per core -> 5,92 GFLOPS
