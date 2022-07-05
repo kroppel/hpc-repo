@@ -12,6 +12,8 @@
 
 ![Task 12.2.](https://github.com/kroppel/hpc-repo/blob/main/12_OpenMP/12_2.png)
 
+The solution was discussed in the lecture from 29.06.
+
 
 
 ### 12.3. Tasking
