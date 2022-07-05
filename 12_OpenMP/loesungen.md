@@ -4,17 +4,17 @@
 
 ### 12.1. Triad
 
-![Task 12.1.](https://github.com/kroppel/hpc-repo/blob/main/12_OpenMP/12.1.png)
+![Task 12.1.](https://github.com/kroppel/hpc-repo/blob/main/12_OpenMP/12_1.png)
 
 
 ### 12.2. Monte Carlo Method
 
 
-![Task 12.2.](https://github.com/kroppel/hpc-repo/blob/main/12_OpenMP/12.2.png)
+![Task 12.2.](https://github.com/kroppel/hpc-repo/blob/main/12_OpenMP/12_2.png)
 
 
 
 ### 12.3. Tasking
 
 
-![Task 12.3.](https://github.com/kroppel/hpc-repo/blob/main/12_OpenMP/12.3.png)
+![Task 12.3.](https://github.com/kroppel/hpc-repo/blob/main/12_OpenMP/12_3.png)
