@@ -1,0 +1,35 @@
+working with:
+  N_VALUES: 1024; this means 0.00390625 MiB per array
+  N_REPEATS: 1000000
+benchmarking triad
+  performance:
+    duration: 1.22855 seconds
+    GFLOPS: 1.66701
+    GiB/s: 9.31515
+
+working with:
+  N_VALUES: 1048576; this means 4 MiB per array
+  N_REPEATS: 20000
+benchmarking triad
+  performance:
+    duration: 1.72945 seconds
+    GFLOPS: 24.2522
+    GiB/s: 135.52
+
+working with:
+  N_VALUES: 536870912; this means 2048 MiB per array
+  N_REPEATS: 20
+benchmarking triad
+  performance:
+    duration: 2.01817 seconds
+    GFLOPS: 10.6407
+    GiB/s: 59.4598
+
+working with:
+  N_VALUES: 2147483648; this means 8192 MiB per array
+  N_REPEATS: 10
+benchmarking triad
+  performance:
+    duration: 4.02538 seconds
+    GFLOPS: 10.6697
+    GiB/s: 59.6217
